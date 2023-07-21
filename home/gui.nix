@@ -62,7 +62,7 @@
 
 
   services.easyeffects = {
-    enable = true;
+    enable = false;
     extraPresets = {
       Noise = {
         input = {
