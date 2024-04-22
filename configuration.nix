@@ -2,26 +2,28 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, chromebook-ucm-conf, ... }:
-let
-  chromebook-ucm-conf = (pkgs.callPackage ./chromebook-audio.nix {});
-in
+{ config, pkgs, inputs, ... }:
+# let
+#   chromebook-ucm-conf = (pkgs.callPackage ./chromebook-audio.nix {});
+# in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware/nyx.nix
+      inputs.chromebook-ucm-conf.nixosModules.default
     ];
 
   ### https://docs.chrultrabook.com/docs/installing/distros.html
-      environment = {
-        sessionVariables = {
-          ALSA_CONFIG_UCM2 = "${chromebook-ucm-conf}/share/alsa/ucm2";
-        };
-      };
-      boot.extraModprobeConfig = ''
-        options snd-intel-dspcfg dsp_driver=3
-      '';
-  ###
+  #     environment = {
+  #       sessionVariables = {
+  #         ALSA_CONFIG_UCM2 = "${chromebook-ucm-conf}/share/alsa/ucm2";
+  #       };
+  #     };
+  #     boot.extraModprobeConfig = ''
+  #       options snd-intel-dspcfg dsp_driver=3
+  #     '';
+  # ###
+
 
   # hardware.opengl.enable = true;
   hardware.opengl = {

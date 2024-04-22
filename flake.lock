@@ -32,6 +32,27 @@
         "type": "github"
       }
     },
+    "chromebook-ucm-conf": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "wtt": "wtt"
+      },
+      "locked": {
+        "lastModified": 1713828720,
+        "narHash": "sha256-yAav1e/1v4qHvzLK6JQSpt4Km5ogOHJcGmfY0T1CHLU=",
+        "owner": "Qwanve",
+        "repo": "chromebook-ucm-conf",
+        "rev": "54a502c4542cc15446bfb1c815657847b8935d23",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Qwanve",
+        "repo": "chromebook-ucm-conf",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -73,8 +94,25 @@
       "inputs": {
         "catppuccin-foot-theme": "catppuccin-foot-theme",
         "catppuccin-mako-theme": "catppuccin-mako-theme",
+        "chromebook-ucm-conf": "chromebook-ucm-conf",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
+      }
+    },
+    "wtt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713055996,
+        "narHash": "sha256-QRUKHd3RQmg1tnZU8KCW0AmDtfw/daOJ/H3XU5qWTCc=",
+        "owner": "WeirdTreeThing",
+        "repo": "chromebook-ucm-conf",
+        "rev": "b6ce2a76f6360b87bfe593ff14dffc125fd9c671",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WeirdTreeThing",
+        "repo": "chromebook-ucm-conf",
+        "type": "github"
       }
     }
   },

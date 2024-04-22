@@ -16,9 +16,13 @@
 
     catppuccin-mako-theme.url = "github:catppuccin/mako";
     catppuccin-mako-theme.flake = false;
+
+    # chromebook-ucm-conf.url = "path:/home/chrx/chromebook-audio";
+    chromebook-ucm-conf.url = "github:Qwanve/chromebook-ucm-conf";
+    chromebook-ucm-conf.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs: {
     nixosConfigurations.nyx = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs.inputs = inputs;
