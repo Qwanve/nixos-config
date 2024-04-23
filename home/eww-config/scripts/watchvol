@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "\d?\d\d(?=%)" --line-buffered | sed "1~2d" --unbuffered
+pactl subscribe | grep "sink" --line-buffered | xargs -L1 pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "\d?\d\d(?=%)" --line-buffered | sed "1~2d" --unbuffered

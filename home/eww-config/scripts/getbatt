@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+perc=$(acpi | head -n1 |  grep -Po "[[:digit:]]+(?=%)")
+state=$(acpi | head -n1 | grep -Eo "(Charging)|(Discharging)")
+time=$(acpi | head -n1 | grep -Eo "[[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}:")
+
+printf '{ "charge_percent":"%s", "state":"%s", "until_charged":"%s", "charge_remaining":"%s"}' $perc $state $time $time

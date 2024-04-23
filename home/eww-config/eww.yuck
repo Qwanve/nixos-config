@@ -1,0 +1,180 @@
+(defwindow bar
+  :monitor 0
+  :stacking "fg"
+  :exclusive true
+  :geometry (geometry
+                      :width "90%"
+                      :height "5%"
+                      :anchor "top center")
+  (bar))
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (workspaces)
+    (music)
+    (sidestuff)))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 5
+    (metric 
+      :label {volume_mute == "no" ? "" : "" }
+      :name "Volume" :align 0.36 :value volume
+      :tooltip "Volume: ${tab}${volume}%${newline}Mute: ${tab}${volume_mute}"
+    )
+    ; (metric :label "" :name "Brightness" :align 0.36 :value brightness)
+    (stacked_metric :label "" :name2 "Brightness" :align 0.4 :value2 brightness
+      :name "Keyboard backlight" :value kbd_brightness
+    )
+
+    ; (metric :label "󰍛" :name "CPU" :align 0.45 :value {EWW_CPU.avg})
+    ; (metric :label "󰚗" :name "RAM" :align 0.45 :value {EWW_RAM.used_mem_perc}
+    ;   :tooltip "Used RAM: ${tab}${round(EWW_RAM.used_mem / (1024*1024*1024),2)} GB${
+    ;     newline}Available RAM: ${tab}${round(EWW_RAM.available_mem / (1024*1024*1024), 2)} GB${
+    ;     newline}Free RAM: ${tab}${round(EWW_RAM.free_mem / (1024*1024*1024), 2)} GB"
+    ; )
+    (stacked_metric :label "󰍛" :name "CPU" :name2 "RAM" :align 0.45 :value {EWW_CPU.avg} :value2 {EWW_RAM.used_mem_perc}
+      :tooltip "Used RAM: ${tab}${round(EWW_RAM.used_mem / (1024*1024*1024),2)} GB${
+        newline}Available RAM: ${tab}${round(EWW_RAM.available_mem / (1024*1024*1024), 2)} GB${
+        newline}Free RAM: ${tab}${round(EWW_RAM.free_mem / (1024*1024*1024), 2)} GB"
+    )
+    (metric :label "󰉉" :name "Disk" :align 0.47 :value {EWW_DISK["/"].used_perc})
+    (metric :label "󱐋" :name "Battery" :class {battery.state}
+      :value {battery.charge_percent}
+      :tooltip "Percentage: ${tab}${battery.charge_percent}%${
+        newline}Status: ${tab}${tab}${battery.state}${
+        newline}${battery.state == "Charging" ? "Time to charge: " + battery.until_charged : "Time to empty: " + battery.charge_remaining}" 
+    )
+    (toggle :label "󰥏" :status {rotation_lock == "T"} :onchecked "pkill -x -STOP rot8" :onunchecked "pkill -x -CONT rot8" :align 0.4)
+    (box :tooltip {formattime(EWW_TIME, '%a %b %d, %Y%n(%F)')}
+      {formattime(EWW_TIME, '%T')})
+    ))
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defwidget workspaces []
+    (box :space-evenly false :class "workspaces-widget"
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          :class "workspace-entry selectable ${workspace.windows > 0 ? "occupied" : "empty"} ${workspace.id == current_workspace ? "selected" : ""}"
+          (label :text "${workspace.id}" :width 20)
+        )
+      )
+    )
+)
+
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+  ; (revealer :class "music"
+       ; :halign "center"
+    ; {music != "" ? "🎵${music}" : ""}))
+    ; {music != "" ? "󰲸 ${music}" : ""}))
+    (label :limit-width 64 :text {music != "" ? "󰝚  ${music}" : ""})))
+
+(defwidget metric [label name ?align ?class value ?tooltip]
+  (box
+    :tooltip {tooltip ?: "${name}: ${round(value,1)}%"}
+    :class "metric"
+    :hexpand true
+    (overlay
+      (circular-progress
+        :value value
+        :class "inner"
+        :start-at 25
+        :clockwise true
+        :width 36
+        :thickness 3
+      )
+      (label 
+        :xalign {align ?: 0.5}
+        :class {class ?: name}
+        :text label
+      )
+  ))
+)
+(defwidget stacked_metric [label name name2 ?align ?class value value2 ?tooltip]
+  (box
+    :tooltip {tooltip ?: "${name}: ${round(value,1)}%${newline}${name2}: ${round(value2, 1)}%"}
+    :class "metric"
+    :hexpand true
+    (overlay
+      (circular-progress
+        :value value
+        :class "outer"
+        :start-at 25
+        :clockwise true
+        :width 38
+        :thickness 3
+      )
+      (circular-progress
+        :value value2
+        :class "inner"
+        :start-at 25
+        :clockwise true
+        :width 32
+        :halign "center"
+        :thickness 3
+      )
+      (label 
+        :xalign {align ?: 0.5}
+        :class {class ?: name}
+        :text label
+      )
+  ))
+)
+
+
+(defwidget toggle [label status ?onchecked ?onunchecked ?align ?class ?tooltip]
+  (box
+    :class "toggle"
+    (eventbox
+      :width 25
+      :class "${status ? "selected" : ""} selectable"
+      :onclick { status ? onunchecked : onchecked }
+      (label 
+        :xalign {align ?: 0.5}
+        :class class
+        :text label
+      )
+    )
+  )
+)
+
+
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(deflisten volume :initial "0"
+  "scripts/watchvol"
+)
+
+(deflisten volume_mute :initial "yes"
+  "scripts/watchmute"
+)
+
+(defvar newline
+"
+"
+)
+(defvar tab "	")
+
+; Make this a deflisten
+(defpoll brightness :interval "0.5s" :initial "0"
+  "brightnessctl -e1.5 -d intel_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'"
+)
+(defpoll kbd_brightness :interval "0.5s" :initial "0"
+  "brightnessctl -e1.5 -d chromeos::kbd_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'"
+)
+
+; jc --acpi breaks when battery is full
+(defpoll battery :interval "1s" :initial '{"charge_percent": 0}'
+  "acpi | jc --acpi -dd | jq .[0] || ./scripts/getbatt"
+)
+
+(defpoll rotation_lock :interval "0.1s" :initial "S"
+  "ps -hos $(pgrep -x rot8)"
+)
+

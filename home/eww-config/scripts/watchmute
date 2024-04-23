@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+pactl get-sink-mute @DEFAULT_SINK@ | grep -Eo "yes|no" --line-buffered
+pactl subscribe | grep "sink" --line-buffered | xargs -L1 pactl get-sink-mute @DEFAULT_SINK@ | grep -Eo "yes|no" --line-buffered
