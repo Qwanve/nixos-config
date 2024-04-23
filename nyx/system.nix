@@ -3,13 +3,10 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }:
-# let
-#   chromebook-ucm-conf = (pkgs.callPackage ./chromebook-audio.nix {});
-# in
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware/nyx.nix
+      ./hardware.nix
       inputs.chromebook-ucm-conf.nixosModules.default
     ];
 
