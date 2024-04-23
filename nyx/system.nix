@@ -10,18 +10,6 @@
       inputs.chromebook-ucm-conf.nixosModules.default
     ];
 
-  ### https://docs.chrultrabook.com/docs/installing/distros.html
-  #     environment = {
-  #       sessionVariables = {
-  #         ALSA_CONFIG_UCM2 = "${chromebook-ucm-conf}/share/alsa/ucm2";
-  #       };
-  #     };
-  #     boot.extraModprobeConfig = ''
-  #       options snd-intel-dspcfg dsp_driver=3
-  #     '';
-  # ###
-
-
   # hardware.opengl.enable = true;
   hardware.opengl = {
     enable = true;
@@ -155,7 +143,6 @@
     enable = true;
     settings = {
       default_session = {
-        # command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${inputs.hyprland.packages.${pkgs.system}.hyprland-unwrapped}/share/wayland-sessions";
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.hyprland}/share/wayland-sessions --cmd ${pkgs.hyprland}/bin/.Hyprland-wrapped";
         user = "greeter";
       };

@@ -28,8 +28,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
-    # package = inputs.hyprland.packages.${pkgs.system}.hyprland-unwrapped;
     settings = {
       monitor = [
         "eDP-1,2256x1504@60,0x0,1.5"
@@ -132,7 +130,7 @@
     package = pkgs.wpaperd;
     settings = {
       eDP-1 = {
-        path = "/etc/nixos/home/wallpaper.png";
+        path = ./wallpaper.png;
       };
     };
   };
@@ -142,7 +140,5 @@
     extraConfig = pkgs.lib.readFile "${inputs.catppuccin-mako-theme}/src/${catppuccin.lower.theme}";
   };
   # programs.clipman.enable = true;
-
-
   
 }

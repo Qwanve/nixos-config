@@ -8,7 +8,6 @@
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-
     catppuccin-foot-theme.url = "github:catppuccin/foot";
     catppuccin-foot-theme.flake = false;
 

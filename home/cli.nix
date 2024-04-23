@@ -36,6 +36,9 @@
     shellAliases = {
       nix-shell = "nix-shell --run fish";
     };
+    shellAbbrs = {
+      nrsf = "sudo nixos-rebuild switch --flake ~/nixos";
+    };
   };
 
   programs.git = {
