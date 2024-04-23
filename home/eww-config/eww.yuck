@@ -21,17 +21,10 @@
       :name "Volume" :align 0.36 :value volume
       :tooltip "Volume: ${tab}${volume}%${newline}Mute: ${tab}${volume_mute}"
     )
-    ; (metric :label "" :name "Brightness" :align 0.36 :value brightness)
     (stacked_metric :label "" :name2 "Brightness" :align 0.4 :value2 brightness
       :name "Keyboard backlight" :value kbd_brightness
     )
 
-    ; (metric :label "󰍛" :name "CPU" :align 0.45 :value {EWW_CPU.avg})
-    ; (metric :label "󰚗" :name "RAM" :align 0.45 :value {EWW_RAM.used_mem_perc}
-    ;   :tooltip "Used RAM: ${tab}${round(EWW_RAM.used_mem / (1024*1024*1024),2)} GB${
-    ;     newline}Available RAM: ${tab}${round(EWW_RAM.available_mem / (1024*1024*1024), 2)} GB${
-    ;     newline}Free RAM: ${tab}${round(EWW_RAM.free_mem / (1024*1024*1024), 2)} GB"
-    ; )
     (stacked_metric :label "󰍛" :name "CPU" :name2 "RAM" :align 0.45 :value {EWW_CPU.avg} :value2 {EWW_RAM.used_mem_perc}
       :tooltip "Used RAM: ${tab}${round(EWW_RAM.used_mem / (1024*1024*1024),2)} GB${
         newline}Available RAM: ${tab}${round(EWW_RAM.available_mem / (1024*1024*1024), 2)} GB${
@@ -39,10 +32,10 @@
     )
     (metric :label "󰉉" :name "Disk" :align 0.47 :value {EWW_DISK["/"].used_perc})
     (metric :label "󱐋" :name "Battery" :class {battery.state}
-      :value {battery.charge_percent}
-      :tooltip "Percentage: ${tab}${battery.charge_percent}%${
+      :value {battery.percentage}
+      :tooltip "Percentage: ${tab}${battery.percentage}%${
         newline}Status: ${tab}${tab}${battery.state}${
-        newline}${battery.state == "Charging" ? "Time to charge: " + battery.until_charged : "Time to empty: " + battery.charge_remaining}" 
+        newline}${battery.state == "charging" ? "Time to charge: " + battery.time_to_full + " " + battery.time_to_full_unit : "Time to empty: " + battery.time_to_empty + " " + battery.time_to_empty_unit}" 
     )
     (toggle :label "󰥏" :status {rotation_lock == "T"} :onchecked "pkill -x -STOP rot8" :onunchecked "pkill -x -CONT rot8" :align 0.4)
     (box :tooltip {formattime(EWW_TIME, '%a %b %d, %Y%n(%F)')}
@@ -159,7 +152,6 @@
 "
 "
 )
-(defvar tab "	")
 
 ; Make this a deflisten
 (defpoll brightness :interval "0.5s" :initial "0"
@@ -169,9 +161,10 @@
   "brightnessctl -e1.5 -d chromeos::kbd_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'"
 )
 
-; jc --acpi breaks when battery is full
-(defpoll battery :interval "1s" :initial '{"charge_percent": 0}'
-  "acpi | jc --acpi -dd | jq .[0] || ./scripts/getbatt"
+(defvar tab "	")
+
+(defpoll battery :interval "1s" :initial '{"percentage": 0}'
+  "upower -i /org/freedesktop/UPower/devices/battery_BAT0 | jc --upower -dd | jq .[0].detail"
 )
 
 (defpoll rotation_lock :interval "0.1s" :initial "S"
