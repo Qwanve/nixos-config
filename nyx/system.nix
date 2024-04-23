@@ -111,6 +111,7 @@
       settings = {
         "main" = {
           "capslock" = "leftmeta";
+          "rightalt" = "layer(rightalt)";
         };
         "meta" = {
           "j" = "down";
@@ -132,6 +133,10 @@
           "backspace" = "delete";
         };
         "alt" = {
+          "brightnessup" = "kbdillumup";
+          "brightnessdown" = "kbdillumdown";
+        };
+        "rightalt" = {
           "brightnessup" = "kbdillumup";
           "brightnessdown" = "kbdillumdown";
         };
