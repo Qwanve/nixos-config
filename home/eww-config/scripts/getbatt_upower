@@ -1,8 +1,0 @@
-#!/bin/sh
-
-bat=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
-state=$(echo $bat | rg "(?:state:\s+)((dis)?charging)" --replace '$1' -o)
-perc=$(echo $bat | rg "(?:percentage:\s+)(\d{2})(?:%)" --replace '$1' -o)
-time=$(echo $bat | rg "(?:time to (empty|full):\s+)([\d\.]+\s\w+)" --replace '$2' -o)
-
-printf '{ "charge_percent": "%s", "state": "%s", "until_charged": "%s", "charge_remaining": "%s"}' "$perc" "$state" "$time" "$time"

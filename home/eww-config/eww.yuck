@@ -148,18 +148,26 @@
   "scripts/watchmute"
 )
 
+(deflisten brightness :initial "0"
+  "scripts/watchbrightness"
+)
+
+(deflisten kbd_brightness :initial "0"
+  "scripts/watchkbdbrightness"
+)
+
 (defvar newline
 "
 "
 )
 
 ; Make this a deflisten
-(defpoll brightness :interval "0.5s" :initial "0"
-  "brightnessctl -e1.5 -d intel_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'"
-)
-(defpoll kbd_brightness :interval "0.5s" :initial "0"
-  "brightnessctl -e1.5 -d chromeos::kbd_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'"
-)
+; (defpoll brightness :interval "0.5s" :initial "0"
+;   "brightnessctl -e1.5 -d intel_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'"
+; )
+; (defpoll kbd_brightness :interval "0.5s" :initial "0"
+;   "brightnessctl -e1.5 -d chromeos::kbd_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'"
+; )
 
 (defvar tab "	")
 
