@@ -39,6 +39,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_6_8;
+  boot.kernelParams = [
+    "mem_sleep_default=deep"
+  ];
 
   networking.hostName = "nyx"; # Define your hostname.
 
@@ -179,6 +182,8 @@
   services.logind = {
     suspendKey = "ignore";
     suspendKeyLongPress = "hibernate";
+    powerKey = "suspend";
+    powerKeyLongPress = "poweroff";
     lidSwitch = "suspend-then-hibernate";
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "suspend";
