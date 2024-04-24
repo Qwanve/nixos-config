@@ -7,6 +7,7 @@
     pkgs.unzip
     pkgs.du-dust
     pkgs.file
+    pkgs.bottom
   ];
   
   programs.command-not-found.enable = false;
@@ -35,6 +36,7 @@
     };
     shellAliases = {
       nix-shell = "nix-shell --run fish";
+      cat = "bat -p";
     };
     shellAbbrs = {
       nrsf = "sudo nixos-rebuild switch --flake ~/nixos";
@@ -61,7 +63,12 @@
   };
   programs.bat.enable = true;
   programs.ripgrep.enable = true;
-  programs.eza.enable = true;
+  programs.eza = {
+    enable = true;
+    enableAliases = true;
+    git = true;
+    extraOptions = [ "--header" ];
+  };
   programs.nnn.enable = true;
   programs.zellij = {
     enable = true;
