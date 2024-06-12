@@ -31,7 +31,7 @@
     enable = true;
     settings = {
       monitor = [
-        "eDP-1,2256x1504@60,0x0,1.5"
+        "eDP-1,2256x1504@60,0x0,1.566667"
       ];
       xwayland.force_zero_scaling = true;
       misc.disable_hyprland_logo = true;
@@ -62,7 +62,6 @@
         "SUPER, space, fullscreen, 0"
         "SUPER+SHIFT, space, fakefullscreen,"
         "SUPER, backslash, togglefloating,"
-
         
       ];
 
@@ -83,9 +82,9 @@
 
       exec-once = [
         "${pkgs.polkit-kde-agent}/usr/lib/polkit-kde-authentication-agent-1"
-        "${pkgs.eww-wayland}/bin/eww daemon && ${pkgs.eww-wayland}/bin/eww open bar"
+        "${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar"
         "${pkgs.wpaperd}/bin/wpaperd"
-        "${pkgs.rot8}/bin/rot8 -n1e4 -ZX --invert-xy xz --hooks 'sleep 0.15 && ${pkgs.eww-wayland}/bin/eww reload' & pkill -x -STOP rot8"
+        "${pkgs.rot8}/bin/rot8 -n1e4 -ZX --invert-xy xz --hooks 'sleep 0.15 && ${pkgs.eww}/bin/eww reload' & pkill -x -STOP rot8"
         "rm /home/chrx/.cache/tofi-drun"
         "${pkgs.batsignal}/bin/batsignal -n BAT0 -d3 -D 'sleep 15 && systemctl hibernate'"
       ];
@@ -124,7 +123,7 @@
 
   programs.eww = {
     enable = true;
-    package = pkgs.eww-wayland;
+    package = pkgs.eww;
     configDir = ./eww-config;
   };
   programs.wpaperd = {

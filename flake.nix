@@ -2,10 +2,10 @@
   description = "A simple NixOS flake";
 
   inputs = {
-    # NixOS official package source, using the nixos-23.11 branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    # NixOS official package source, using the nixos-24.05 branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     catppuccin-foot-theme.url = "github:catppuccin/foot";
@@ -32,8 +32,9 @@
           home-manager.extraSpecialArgs.inputs = inputs;
         }
 
-        # remove in 24.05
-        (import ./disable-channels.nix {lib=nixpkgs.lib; nixpkgs=nixpkgs;})
+        {
+          nix.channel.enable = false;
+        }
       ];
     };
   };

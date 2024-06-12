@@ -67,7 +67,7 @@
   };
 
 
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   users.mutableUsers = false;
   users.users.chrx = {

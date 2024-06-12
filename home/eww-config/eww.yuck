@@ -106,7 +106,7 @@
         :class "inner"
         :start-at 25
         :clockwise true
-        :width 32
+        :width 30
         :halign "center"
         :thickness 3
       )

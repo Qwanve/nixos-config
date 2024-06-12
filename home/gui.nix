@@ -6,7 +6,7 @@
     pkgs.steam
     pkgs.imv
     pkgs.signal-desktop
-    # pkgs.overskride
+    pkgs.overskride
   ];
   
   fonts.fontconfig.enable = true;
