@@ -73,7 +73,7 @@
   users.users.chrx = {
     isNormalUser = true;
     description = "Daniel Stroh";
-    extraGroups = [ "networkmanager" "wheel" "input"];
+    extraGroups = [ "networkmanager" "wheel" "input" ];
     hashedPasswordFile = "/etc/nixos/passwd.hashed";
   };
 
