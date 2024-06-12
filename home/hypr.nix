@@ -86,7 +86,7 @@
         "${pkgs.wpaperd}/bin/wpaperd"
         "${pkgs.rot8}/bin/rot8 -n1e4 -ZX --invert-xy xz --hooks 'sleep 0.15 && ${pkgs.eww}/bin/eww reload' & pkill -x -STOP rot8"
         "rm /home/chrx/.cache/tofi-drun"
-        "${pkgs.batsignal}/bin/batsignal -n BAT0 -d3 -D 'sleep 15 && systemctl hibernate'"
+        "${pkgs.batsignal}/bin/batsignal -n BAT0 -d4 -D 'notify-send \"Battery critical\" \"Battery at 3%\" -u critical && sleep 15 && systemctl hibernate'"
       ];
 
       input = {
