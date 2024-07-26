@@ -174,7 +174,30 @@
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
-  services.acpid.enable = true;
+  services.acpid = {
+    enable = true;
+    handlers.TBLT = {
+      event = "video/tabletmode";
+      action = ''
+        vals=($1)
+        case ''${vals[2]} in
+          0000008A)
+            case ''${vals[3]} in
+              00000001)
+                echo 'Tablet mode enabled' ;;
+              00000000)
+                echo 'Tablet mode disabled' ;;
+              *)
+                echo "ACPI action undefined: $1" ;;
+              esac
+            ;;
+          *)
+            echo "ACPI action undefined: $1" ;;
+          esac
+      '';
+    };
+  };
+
   services.upower.enable = true;
   powerManagement.enable = true;
 
