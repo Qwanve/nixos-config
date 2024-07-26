@@ -52,6 +52,7 @@
         defaultBranch = "main";
       };
     };
+    difftastic.enable = true;
   };
 
   programs.helix = {
