@@ -212,6 +212,22 @@
     lidSwitchExternalPower = "suspend";
   };
 
+  services.udev.extraRules = ''
+    ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", MODE:="0666"
+  '';
+
+  fileSystems."/home/chrx/pico" = {
+    device = "/dev/disk/by-id/usb-RPI_RP2_E0C9125B0D9B-0:0-part1";
+    fsType = "vfat";
+    options = [
+      "users"
+      "sync"
+      "nofail"
+      "noauto"
+      "noatime"
+    ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
