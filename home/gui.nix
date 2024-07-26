@@ -29,16 +29,16 @@
     enable = true;
 
     # Denver
-    # latitude = 40;
-    # longitude = 105;
+    latitude = 40.0;
+    longitude = 105.0;
 
     # Austin
     # latitude = 30;
     # longitude = 98;
 
     # Haughton
-    latitude = 32.5;
-    longitude = -93.5;
+    # latitude = 32.5;
+    # longitude = -93.5;
   };
 
 }

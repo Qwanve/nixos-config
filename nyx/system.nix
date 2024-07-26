@@ -90,6 +90,8 @@
   programs.hyprland = {
     enable = true;
   };
+  services.desktopManager.plasma6.enable = true;
+  services.power-profiles-daemon.enable = false;
   programs.fish.enable = true;
   # programs.bash = {
   #   interactiveShellInit = ''
@@ -151,7 +153,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.hyprland}/share/wayland-sessions --cmd ${pkgs.hyprland}/bin/.Hyprland-wrapped";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.hyprland}/share/wayland-sessions:${pkgs.plasma-workspace}/share/wayland-sessions --cmd ${pkgs.hyprland}/bin/.Hyprland-wrapped";
         user = "greeter";
       };
     };
