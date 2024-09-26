@@ -6,7 +6,7 @@ $accent_contrast: 'blue';
 $palette: map-get($palette, $theme);
 
 .bar {
-  font-size: 120%;
+  font-size: 100%;
   
   background-color: map-get($palette, 'base');
   color: map-get($palette, 'text');
