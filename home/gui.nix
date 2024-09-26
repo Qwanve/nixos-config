@@ -8,6 +8,10 @@
     pkgs.signal-desktop
     pkgs.overskride
   ];
+
+  home.sessionVariables = {
+    MOZ_USE_XINPUT2 = "1";
+  };
   
   fonts.fontconfig.enable = true;
 
