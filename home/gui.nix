@@ -16,9 +16,9 @@
     # server.enable = true;
     settings = {
       main = {
-        include = "${inputs.catppuccin-foot-theme}/themes/catppuccin-${catppuccin.lower.theme}.ini";
+        # include = "${inputs.catppuccin-foot-theme}/themes/catppuccin-${catppuccin.lower.theme}.ini";
         shell = "${pkgs.fish}/bin/fish";
-        dpi-aware = true;
+        # dpi-aware = true;
         
       };
     };

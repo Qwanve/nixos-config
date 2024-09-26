@@ -11,7 +11,7 @@
     _module.args.catppuccin = rec {
       caps = {
         theme = "Frappe";
-        accent = "Dark";
+        accent = "Blue";
       };
       lower = {
         theme = pkgs.lib.strings.toLower caps.theme;
@@ -23,5 +23,6 @@
       ../home/hypr.nix
       ../home/gui.nix
       ../home/cli.nix
+      ../home/stylix.nix
     ];
 }

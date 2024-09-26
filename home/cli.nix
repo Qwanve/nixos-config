@@ -59,9 +59,6 @@
   programs.helix = {
     enable = true;
     defaultEditor = true;
-    settings = {
-      theme = "catppuccin_${catppuccin.lower.theme}";
-    };
   };
   programs.bat.enable = true;
   programs.ripgrep.enable = true;
@@ -76,7 +73,6 @@
     enable = true;
     settings = {
       default_layout = "compact";
-      theme = "catppuccin-${catppuccin.lower.theme}";
     };
   };
   programs.zoxide = {

@@ -18,13 +18,13 @@
     pkgs.inotify-tools
   ];
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.catppuccin-cursors."${catppuccin.lower.theme}${catppuccin.caps.accent}";
-    name = "Catppuccin-${catppuccin.caps.theme}-${catppuccin.caps.accent}-Cursors";
-    size = 64;
-  };
+  # home.pointerCursor = {
+  #   gtk.enable = true;
+  #   x11.enable = true;
+  #   package = pkgs.catppuccin-cursors."${catppuccin.lower.theme}${catppuccin.caps.accent}";
+  #   name = "catppuccin-${catppuccin.lower.theme}-${catppuccin.lower.accent}-cursors";
+  #   size = 64;
+  # };
 
 
   wayland.windowManager.hyprland = {
@@ -138,8 +138,10 @@
 
   services.mako = {
     enable = true;
-    extraConfig = pkgs.lib.readFile "${inputs.catppuccin-mako-theme}/src/${catppuccin.lower.theme}";
+    # extraConfig = pkgs.lib.readFile "${inputs.catppuccin-mako-theme}/themes/catppuccin-${catppuccin.lower.theme}/catppuccin-${catppuccin.lower.theme}-${catppuccin.lower.accent}";
   };
   # programs.clipman.enable = true;
+
+  services.hyprpaper.enable = true;
   
 }
