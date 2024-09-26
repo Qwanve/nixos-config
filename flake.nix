@@ -13,6 +13,9 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     catppuccin-foot-theme.url = "github:catppuccin/foot";
     catppuccin-foot-theme.flake = false;
 
@@ -33,6 +36,9 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.sharedModules = [
+            inputs.nix-index-database.hmModules.nix-index
+          ];
           home-manager.users.chrx = import ./nyx/home.nix;
           home-manager.extraSpecialArgs.inputs = inputs;
         }
