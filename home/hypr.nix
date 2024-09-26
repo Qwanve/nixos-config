@@ -60,7 +60,7 @@
         "SUPER, tab, changegroupactive,f"
 
         "SUPER, space, fullscreen, 0"
-        "SUPER+SHIFT, space, fakefullscreen,"
+        "SUPER+SHIFT, space, fullscreenstate, -1, 2"
         "SUPER, backslash, togglefloating,"
         
       ];
