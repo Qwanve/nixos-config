@@ -18,14 +18,6 @@
     pkgs.inotify-tools
   ];
 
-  # home.pointerCursor = {
-  #   gtk.enable = true;
-  #   x11.enable = true;
-  #   package = pkgs.catppuccin-cursors."${catppuccin.lower.theme}${catppuccin.caps.accent}";
-  #   name = "catppuccin-${catppuccin.lower.theme}-${catppuccin.lower.accent}-cursors";
-  #   size = 64;
-  # };
-
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -85,7 +77,6 @@
         "${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar"
         "${pkgs.rot8}/bin/rot8 -n1e4 -ZX --invert-xy xz --hooks 'sleep 0.3 && ${pkgs.eww}/bin/eww reload' & pkill -x -STOP rot8"
         "rm /home/chrx/.cache/tofi-drun"
-        "${pkgs.wpaperd}/bin/wpaperd"
         "${pkgs.batsignal}/bin/batsignal -n BAT0 -d4 -D 'notify-send \"Battery critical\" \"Battery at 3%\" -u critical'"
       ];
 
@@ -129,19 +120,9 @@
     package = pkgs.eww;
     configDir = ./eww-config;
   };
-  programs.wpaperd = {
-    enable = true;
-    package = pkgs.wpaperd;
-    settings = {
-      eDP-1 = {
-        path = ./wallpaper.png;
-      };
-    };
-  };
 
   services.mako = {
     enable = true;
-    # extraConfig = pkgs.lib.readFile "${inputs.catppuccin-mako-theme}/themes/catppuccin-${catppuccin.lower.theme}/catppuccin-${catppuccin.lower.theme}-${catppuccin.lower.accent}";
   };
   # programs.clipman.enable = true;
 
