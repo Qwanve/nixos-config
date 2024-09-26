@@ -72,7 +72,7 @@
     isNormalUser = true;
     description = "Daniel Stroh";
     extraGroups = [ "networkmanager" "wheel" "input" ];
-    hashedPasswordFile = "/etc/nixos/passwd.hashed";
+    hashedPassword = "$y$j9T$tRGSqIPv4NpMMYGZ1ZyC11$ieJa3XPzdkApzolCiknR7tLuugS4Q0i4JNBJTQiLMT7";
   };
 
   environment.systemPackages = with pkgs; [

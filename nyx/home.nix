@@ -6,7 +6,7 @@
     nixpkgs.config = import ../home/nixpkgs.nix;
     xdg.configFile."nixpkgs/config.nix".source = ../home/nixpkgs.nix;
     programs.home-manager.enable = true;
-    home.stateVersion = "23.11";
+    home.stateVersion = "24.05";
 
     _module.args.catppuccin = rec {
       caps = {
