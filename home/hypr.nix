@@ -83,29 +83,30 @@
       exec-once = [
         "${pkgs.polkit-kde-agent}/usr/lib/polkit-kde-authentication-agent-1"
         "${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar"
-        "${pkgs.wpaperd}/bin/wpaperd"
-        "${pkgs.rot8}/bin/rot8 -n1e4 -ZX --invert-xy xz --hooks 'sleep 0.15 && ${pkgs.eww}/bin/eww reload' & pkill -x -STOP rot8"
+        "${pkgs.rot8}/bin/rot8 -n1e4 -ZX --invert-xy xz --hooks 'sleep 0.3 && ${pkgs.eww}/bin/eww reload' & pkill -x -STOP rot8"
         "rm /home/chrx/.cache/tofi-drun"
-        "${pkgs.batsignal}/bin/batsignal -n BAT0 -d4 -D 'notify-send \"Battery critical\" \"Battery at 3%\" -u critical && sleep 15 && systemctl hibernate'"
+        "${pkgs.wpaperd}/bin/wpaperd"
+        "${pkgs.batsignal}/bin/batsignal -n BAT0 -d4 -D 'notify-send \"Battery critical\" \"Battery at 3%\" -u critical'"
       ];
 
       input = {
         touchpad = {
           clickfinger_behavior = true;
         };
-        tablet = {
-          output = "eDP-1";
-        };
+        # tablet = {
+        #   output = "eDP-1";
+        # };
       };
 
-      "input:touchdevice" = {
-        output = "eDP-1";
-      };
+      # "input:touchdevice" = {
+      #   output = "eDP-1";
+      # };
         
 
       windowrulev2 = [
         "group new,class:(org.prismlauncher.PrismLauncher),title:(Prism Launcher 8.0)"
         "group set, class:(org.prismlauncher.PrismLauncher)"
+        "float, class:^(Minecraft ).*$"
         "float, title:^(Extension: .* — Mozilla Firefox)$"
       ];
       decoration = {
@@ -116,6 +117,8 @@
         workspace_swipe = true;
         workspace_swipe_create_new = false;
       };
+
+      debug.disable_logs = false;
 
     };
 
