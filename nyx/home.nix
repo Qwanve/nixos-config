@@ -23,6 +23,5 @@
       ../home/hypr.nix
       ../home/gui.nix
       ../home/cli.nix
-      # ../home/plasma.nix
     ];
 }

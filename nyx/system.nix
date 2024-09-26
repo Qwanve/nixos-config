@@ -88,8 +88,6 @@
   programs.hyprland = {
     enable = true;
   };
-  services.desktopManager.plasma6.enable = true;
-  services.power-profiles-daemon.enable = false;
   programs.fish.enable = true;
   # programs.bash = {
   #   interactiveShellInit = ''
