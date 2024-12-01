@@ -202,10 +202,10 @@
 
   services.logind = {
     suspendKey = "ignore";
-    suspendKeyLongPress = "hibernate";
+    suspendKeyLongPress = "suspend";
     powerKey = "suspend";
     powerKeyLongPress = "poweroff";
-    lidSwitch = "suspend-then-hibernate";
+    lidSwitch = "suspend";
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "suspend";
   };

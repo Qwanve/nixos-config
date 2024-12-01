@@ -4,7 +4,7 @@
   home.packages = [
     # pkgs.tofi
     pkgs.libnotify
-    pkgs.nerdfonts
+    pkgs.nerd-fonts.symbols-only
 
     # eww widgets
     # pactl

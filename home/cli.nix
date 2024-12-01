@@ -8,6 +8,7 @@
     pkgs.du-dust
     pkgs.file
     pkgs.bottom
+    pkgs.jujutsu
   ];
   
   programs.command-not-found.enable = false;
@@ -59,6 +60,11 @@
   programs.helix = {
     enable = true;
     defaultEditor = true;
+    settings = {
+      editor = {
+        bufferline = "multiple";
+      };
+    };
   };
   programs.bat.enable = true;
   programs.ripgrep.enable = true;
