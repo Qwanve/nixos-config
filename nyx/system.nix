@@ -156,11 +156,13 @@
   };
 
   services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
+    enable = false;
+  #   alsa.enable = true;
+  #   pulse.enable = true;
+  #   wireplumber.enable = true;
   };
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
 
   # services.blueman.enable = true;
 
