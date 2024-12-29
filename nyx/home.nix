@@ -3,8 +3,8 @@
     home.username = "chrx";
     home.homeDirectory = "/home/chrx";
 
-    nixpkgs.config = import ../home/nixpkgs.nix;
-    xdg.configFile."nixpkgs/config.nix".source = ../home/nixpkgs.nix;
+    # nixpkgs.config = import ../home/nixpkgs.nix;
+    # xdg.configFile."nixpkgs/config.nix".source = ../home/nixpkgs.nix;
     programs.home-manager.enable = true;
     home.stateVersion = "24.05";
 

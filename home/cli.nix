@@ -41,6 +41,7 @@
     };
     shellAbbrs = {
       nrsf = "sudo nixos-rebuild switch --flake ~/nixos-config";
+      nrtf = "sudo nixos-rebuild test --flake ~/nixos-config";
       mp = "mount /dev/disk/by-id/usb-RPI_RP2_E0C9125B0D9B-0:0-part1";
     };
   };
@@ -77,6 +78,7 @@
   programs.nnn.enable = true;
   programs.zellij = {
     enable = true;
+    enableFishIntegration = false;
     settings = {
       default_layout = "compact";
     };

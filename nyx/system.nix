@@ -144,12 +144,13 @@
       };
     };
   };
+  systemd.services.keyd.serviceConfig.RestartPreventExitStatus = 255;
 
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.hyprland}/share/wayland-sessions:${pkgs.plasma-workspace}/share/wayland-sessions --cmd ${pkgs.hyprland}/bin/.Hyprland-wrapped";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.swayfx}/share/wayland-sessions:${pkgs.fish}/share/applications";
         user = "greeter";
       };
     };
@@ -161,8 +162,8 @@
   #   pulse.enable = true;
   #   wireplumber.enable = true;
   };
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  services.pulseaudio.enable = true;
+  services.pulseaudio.support32Bit = true;
 
   # services.blueman.enable = true;
 
@@ -184,9 +185,15 @@
           0000008A)
             case ''${vals[3]} in
               00000001)
-                echo 'Tablet mode enabled' ;;
+                echo "Tablet mode enabled"
+                echo "activated" >> /var/run/user/1000/tablet
+                disabled=1
+                ;;
               00000000)
-                echo 'Tablet mode disabled' ;;
+                echo "Tablet mode disabled"
+                echo "deactivated" >> /var/run/user/1000/tablet
+                disabled=0
+                ;;
               *)
                 echo "ACPI action undefined: $1" ;;
               esac
@@ -194,6 +201,12 @@
           *)
             echo "ACPI action undefined: $1" ;;
           esac
+          find /sys/class/input/input* -prune | while read inputnumber; do
+            if grep -q -i -e "keyboard" -e "touchpad" $inputnumber/name; then
+              echo "found $(cat $inputnumber/name)";
+              echo $disabled > $inputnumber/inhibited;
+            fi
+          done
       '';
     };
   };

@@ -73,7 +73,7 @@
       ];
 
       exec-once = [
-        "${pkgs.polkit-kde-agent}/usr/lib/polkit-kde-authentication-agent-1"
+        "${pkgs.kdePackages.polkit-kde-agent-1}/usr/lib/polkit-kde-authentication-agent-1"
         "${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar"
         "${pkgs.rot8}/bin/rot8 -n1e4 -ZX --invert-xy xz --hooks 'sleep 0.3 && ${pkgs.eww}/bin/eww reload' & pkill -x -STOP rot8"
         "rm /home/chrx/.cache/tofi-drun"
