@@ -34,7 +34,7 @@
 
     # Denver
     latitude = 40.0;
-    longitude = 105.0;
+    longitude = -105.0;
 
     # Austin
     # latitude = 30;
