@@ -7,6 +7,7 @@
     pkgs.imv
     pkgs.signal-desktop
     pkgs.overskride
+    pkgs.bolt-launcher
   ];
 
   home.sessionVariables = {
