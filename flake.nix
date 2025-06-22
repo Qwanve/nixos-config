@@ -42,7 +42,7 @@
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
             inputs.nix-index-database.hmModules.nix-index
-            inputs.stylix.homeManagerModules.stylix
+            inputs.stylix.homeModules.stylix
           ];
           home-manager.users.chrx = import ./nyx/home.nix;
           home-manager.extraSpecialArgs.inputs = inputs;

@@ -243,7 +243,7 @@
 
   networking.firewall.enable = false;
 
-  virtualisation.waydroid.enable = true;
+  # virtualisation.waydroid.enable = true;
 
 
   # This value determines the NixOS release from which the default
