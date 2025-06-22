@@ -4,6 +4,7 @@
     # pkgs.tofi
     pkgs.libnotify
     pkgs.nerd-fonts.symbols-only
+    pkgs.tofi
 
     # eww widgets
     # pactl

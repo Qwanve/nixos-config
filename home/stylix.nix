@@ -12,6 +12,6 @@
     name = "graphite-dark";
   };
   stylix.targets.helix.enable = false;
-  stylix.cursor.size = 16;
+  stylix.cursor.size = 32;
   programs.helix.settings.theme = "dracula";
 }
