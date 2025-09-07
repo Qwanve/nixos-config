@@ -18,7 +18,6 @@
 
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.inputs.home-manager.follows = "home-manager";
 
     catppuccin-foot-theme.url = "github:catppuccin/foot";
     catppuccin-foot-theme.flake = false;
@@ -38,10 +37,10 @@
         ./nyx/system.nix
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
+          # home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
-            inputs.nix-index-database.hmModules.nix-index
+            inputs.nix-index-database.homeModules.nix-index
             inputs.stylix.homeModules.stylix
           ];
           home-manager.users.chrx = import ./nyx/home.nix;

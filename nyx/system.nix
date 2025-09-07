@@ -31,7 +31,7 @@
   # Enable nix2 commands and flake features
   nix.settings.experimental-features = ["nix-command flakes"];
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -150,7 +150,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.swayfx}/share/wayland-sessions:${pkgs.fish}/share/applications";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.swayfx}/share/wayland-sessions:${pkgs.fish}/share/applications";
         user = "greeter";
       };
     };
@@ -215,14 +215,14 @@
   powerManagement.enable = true;
 
 
-  services.logind = {
-    suspendKey = "ignore";
-    suspendKeyLongPress = "suspend";
-    powerKey = "suspend";
-    powerKeyLongPress = "poweroff";
-    lidSwitch = "suspend";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "suspend";
+  services.logind.settings.Login = {
+    HandleSuspendKey = "ignore";
+    HandleSuspendKeyLongPress = "suspend";
+    HandlePowerKey = "suspend";
+    HandlePowerKeyLongPress = "poweroff";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchDocked = "ignore";
+    HandleLidSwitchExternalPower = "suspend";
   };
 
   services.udev.extraRules = ''
