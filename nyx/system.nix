@@ -30,13 +30,10 @@
 
   # Enable nix2 commands and flake features
   nix.settings.experimental-features = ["nix-command flakes"];
-  # Allow unfree packages
-  # nixpkgs.config.allowUnfree = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  # boot.kernelPackages = pkgs.linuxPackages_6_1;
   boot.kernelParams = [
     "mem_sleep_default=deep"
   ];
@@ -157,13 +154,11 @@
   };
 
   services.pipewire = {
-    enable = false;
-  #   alsa.enable = true;
-  #   pulse.enable = true;
-  #   wireplumber.enable = true;
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
   };
-  services.pulseaudio.enable = true;
-  services.pulseaudio.support32Bit = true;
 
   # services.blueman.enable = true;
 
