@@ -1,4 +1,4 @@
-{config, pkgs, inputs, catppuccin, ...}:
+{config, pkgs, lib, inputs, catppuccin, ...}:
 {
   home.packages = [
     # pkgs.tofi
@@ -82,6 +82,7 @@
         "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "${modifier}+XF86Sleep" = "exec ${pkgs.swaylock-effects}/bin/swaylock --fade 0.5 --grace 3";
       };
     };
     # Bug: https://github.com/nix-community/home-manager/issues/5379
@@ -99,5 +100,49 @@
   };
   services.mako = {
     enable = true;
+  };
+
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+    settings = {
+      daemonize = true;
+      ignore-empty-password = true;
+      grace = 0;
+      fade-in = 0;
+      grace-no-mouse = true;
+      grace-no-touch = true;
+      screenshots = true;
+      effect-blur = "16x4";
+      effect-greyscale = true;
+      clock = true;
+      ring-clear-color = lib.mkForce "282a36DD";
+      text-clear-color = lib.mkForce "f0f1f4AA";
+      inside-clear-color = lib.mkForce "000000FF";
+      ring-color = lib.mkForce "282a36DD";
+      inside-color = lib.mkForce "000000FF";
+      text-color = lib.mkForce "f0f1f4AA";
+      key-hl-color = lib.mkForce "50fa7bAA";
+      bs-hl-color = lib.mkForce "fa507bAA";
+      ring-ver-color = lib.mkForce "507bfaAA";
+      inside-ver-color = lib.mkForce "000000FF";
+      text-ver-color = lib.mkForce "f0f1f4AA";
+      ring-wrong-color = lib.mkForce "ff507bFF";
+      inside-wrong-color = lib.mkForce "200000FF";
+      text-wrong-color = lib.mkForce "f0f1f4AA";
+    };
+  };
+
+  services.swayidle = {
+    enable = true;
+    events = [
+      { event = "before-sleep"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+      { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock --fade-in 3 --grace 5"; }
+    ];
+    timeouts = [
+      { timeout = 120; command = "${pkgs.swaylock-effects}/bin/swaylock --fade-in 3 --grace 5"; }
+      { timeout = 180; command = "${pkgs.swayfx}/bin/swaymsg 'output * power off'"; resumeCommand = "${pkgs.swayfx}/bin/swaymsg 'output * power on'"; }
+      { timeout = 300; command = "${pkgs.systemd}/bin/systemctl suspend"; }
+    ];
   };
 }
