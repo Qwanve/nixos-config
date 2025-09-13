@@ -40,8 +40,8 @@
       cat = "bat -p";
     };
     shellAbbrs = {
-      nrsf = "sudo nixos-rebuild switch --flake ~/nixos-config";
-      nrtf = "sudo nixos-rebuild test --flake ~/nixos-config";
+      nrsf = "nixos-rebuild switch --flake ~/nixos-config/ --sudo";
+      nrtf = "nixos-rebuild test --flake ~/nixos-config/ --sudo";
       mp = "mount /dev/disk/by-id/usb-RPI_RP2_E0C9125B0D9B-0:0-part1";
     };
   };
