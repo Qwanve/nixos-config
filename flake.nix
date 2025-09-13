@@ -54,5 +54,29 @@
         }
       ];
     };
+    nixosConfigurations.void = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs.inputs = inputs;
+      modules = [
+        ./void/system.nix
+        home-manager.nixosModules.home-manager
+        {
+          # home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.sharedModules = [
+            inputs.nix-index-database.homeModules.nix-index
+            inputs.stylix.homeModules.stylix
+          ];
+          home-manager.users.chrx = import ./void/home.nix;
+          home-manager.extraSpecialArgs.inputs = inputs;
+        }
+
+        # inputs.lix-module.nixosModules.default
+
+        {
+          nix.channel.enable = false;
+        }
+      ];
+    };
   };
 }
