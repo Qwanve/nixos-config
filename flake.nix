@@ -16,7 +16,7 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     catppuccin-foot-theme.url = "github:catppuccin/foot";
@@ -57,6 +57,7 @@
         {
           nix.channel.enable = false;
         }
+        inputs.stylix.nixosModules.stylix
       ];
   }; in {
     nixosConfigurations.nyx = config "nyx";
