@@ -1,7 +1,0 @@
-#!/bin/sh
-
-brightnessctl -e1.5 -d intel_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'
-while inotifywait -e modify /sys/class/backlight/intel_backlight/brightness 2>/dev/null >/dev/null;
-do
-	brightnessctl -e1.5 -d intel_backlight -m info | awk -F ',' '{print $4}' | sed 's/%//g'
-done

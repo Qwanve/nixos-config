@@ -1,70 +1,84 @@
-@import "catppuccin";
-
-$theme: 'frappe';
-$accent: 'peach';
-$accent_contrast: 'blue';
-$palette: map-get($palette, $theme);
+* {
+	all: unset;
+}
 
 .bar {
-  font-size: 100%;
-  
-  background-color: map-get($palette, 'base');
-  color: map-get($palette, 'text');
-  border-color: map-get($palette, $accent_contrast);
-  border-width: 0px 2px 2px 2px;
-  border-style: solid;
-  border-radius: 0px 0px 10px 10px;
-  padding: 5px;
-
-  .horizontal {
-    padding: 4px;
-  }
-
-  .metric {
-    circular-progress.inner {
-      background-color: map-get($palette, 'surface1');
-      color: map-get($palette, $accent);
-    }
-    circular-progress.outer {
-      background-color: map-get($palette, 'surface1');
-      color: map-get($palette, $accent_contrast);
-    }
-    label.charging {
-      color: map-get($palette, 'green');
-    }
-  }
-
-  .toggle widget {
-    border-radius: 5px;
-  }
-
-  .workspaces-widget .workspace-entry {
-    &.occupied label {
-      color: map-get($palette, $accent);
-    }
-    &.empty label {
-      color: rgba(map-get($palette, 'text'), 0.3);
-    }
-    &, label {
-      border-radius: 5px;
-    }
-  }
+	background-color: #21222c;
+	padding: 0.3em 0px;
 }
 
-.selectable:not(.selected):hover {
-  background-color: rgba(map-get($palette, 'surface1'), 0.25);
-}
-.selected {
-  background-color: rgba(map-get($palette, 'surface1'), 0.5);
-}
-.selected:hover {
-  background-color: rgba(map-get($palette, 'surface1'), 0.75);
+window {
+	color: #FFFFFF;
 }
 
-tooltip {
-  color: map-get($palette, 'text');
-  border-radius: 5px;
-  background-color: rgba(map-get($palette, 'overlay0'), 0.8);
-  border-color: rgba(map-get($palette, 'overlay2'), 0.8);
-  border-width: 3px;
+button {
+	background-color: shade(#343746, 1);
+}
+button:hover {
+	background-color: shade(#343746, 1.5);
+}
+
+button.focused {
+	background-color: shade(#343746, 1.75);
+}
+button.focused label {
+	font-weight: bold;
+}
+button.focused:hover {
+	background-color: shade(#343746, 2);
+}
+
+.clock {
+	margin: 0em 0.8em 0em 0.8em;
+}
+
+.battery_icon {
+	font-size: 1.4em;
+	margin: 0em 0em 0em 0.3em;
+}
+
+.low_battery {
+	color: shade(#ff5555, 1.15);
+}
+
+.Charging label {
+	color: shade(#50fa7b, 1.15);
+}
+
+
+.separator {
+	font-size: 150%;
+	margin: 0em 0em 0em 0.3em;
+}
+
+.addws {
+	border-radius: 7px;
+}
+.addws label {
+	padding: 0em 0.5em;
+}
+
+button {
+	border-radius: 7px;
+}
+button label {
+	padding: 0em 0.5em;
+}
+
+.launcher label {
+	font-size: 1.3em;
+}
+
+.launcher {
+	margin: 0em 0.6em 0em 0em;
+}
+
+.workspace {
+	margin: 0em 0.2em 0em 0em;
+}
+
+.newws {
+	background-color: #343746;
+	border-radius: 7px;
+	margin: 0em 0.2em;
 }

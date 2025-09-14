@@ -1,185 +1,44 @@
-(defvar width "80%")
+(include "./widgets/workspaces.yuck")
+(include "./widgets/battery.yuck")
+(include "./widgets/clock.yuck")
+(include "./widgets/launcher.yuck")
+
 (defwindow bar
-  :monitor 0
-  :stacking "fg"
-  :exclusive true
-  :geometry (geometry
-                      :width "80%"
-                      :height "5%"
-                      :anchor "top center")
-  (bar))
-
-(defwidget bar []
-  (centerbox :orientation "h"
-    (workspaces)
-    (music)
-    (sidestuff)))
-
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 5
-    (metric 
-      :label {volume_mute == "no" ? "" : "" }
-      :name "Volume" :align 0.5 :value volume
-      :tooltip "Volume: ${tab}${volume}%${newline}Mute: ${tab}${volume_mute}"
+    :monitor 0
+    :exclusive true
+    :geometry (geometry
+        :width "100%"
+        :height "4%"
+        :anchor "top center")
+    :stacking "bg"
+    :windowtype "dock"
+    :wm-ignore false
+    :focusable true
+  (centerbox
+    ; Left side
+    (box
+      :space-evenly false
+        (launcher)
+        (workspaces)
     )
-    (stacked_metric :label "" :name2 "Brightness" :align 0.5 :yalign 0.5 :value2 brightness
-      :name "Keyboard backlight" :value kbd_brightness
+    ; Center
+    (box)
+    ; Right
+    (box
+      :space-evenly false
+      :halign "end"
+        (partialWorkspace)
+        (addWorkspace)
+        (label :width 10 :text "|" :class "separator")
+        (volume)
+        (system)
+        (battery)
+        (clock)
     )
 
-    (stacked_metric :label "󰍛" :name "CPU" :name2 "RAM" :align 0.5 :value {EWW_CPU.avg} :value2 {EWW_RAM.used_mem_perc}
-      :tooltip "Used RAM: ${tab}${round(EWW_RAM.used_mem / (1024*1024*1024),2)} GB${
-        newline}Available RAM: ${tab}${round(EWW_RAM.available_mem / (1024*1024*1024), 2)} GB${
-        newline}Free RAM: ${tab}${round(EWW_RAM.free_mem / (1024*1024*1024), 2)} GB"
-    )
-    (metric :label "󰉉" :name "Disk" :align 0.5 :value {EWW_DISK["/"].used_perc})
-    (metric :label "󱐋" :name "Battery" :class {battery.state}
-      :value {battery.percentage}
-      :tooltip "Percentage: ${tab}${battery.percentage}%${
-        newline}Status: ${tab}${tab}${battery.state}${
-        newline}${battery.state == "charging" ? "Time to charge: " + battery.time_to_full + " " + battery.time_to_full_unit : "Time to empty: " + battery.time_to_empty + " " + battery.time_to_empty_unit}" 
-    )
-    (literal :content {tablet_mode == "activated" ? 
-      '(toggle :label "󰥏" :status ${rotation_lock == "T"} :onchecked "pkill -x -STOP rot8" :onunchecked "pkill -x -CONT rot8" :align 0.5)'
-    : ""})
-    (box :tooltip {formattime(EWW_TIME, '%a %b %d, %Y%n(%F)')}
-      {formattime(EWW_TIME, '%T')})
-    ))
-
-(deflisten workspaces :initial "[]" "bash ./scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "logger $(pwd) && bash ./scripts/get-active-workspace")
-(defwidget workspaces []
-    (box :space-evenly false :class "workspaces-widget"
-      (label :text "${workspaces}${current_workspace}" :visible false)
-      (for workspace in workspaces
-        (eventbox :onclick "swaymsg workspace ${workspace.id}"
-          :class "workspace-entry selectable ${workspace.windows > 0 ? "occupied" : "empty"} ${workspace.id == current_workspace ? "selected" : ""}"
-          (label :text "${workspace.id}" :width 20)
-        )
-      )
-    )
-)
-
-(defwidget music []
-  (box :class "music"
-       :orientation "h"
-       :space-evenly false
-  ; (revealer :class "music"
-       ; :halign "center"
-    ; {music != "" ? "🎵${music}" : ""}))
-    ; {music != "" ? "󰲸 ${music}" : ""}))
-    (label :limit-width 64 :text {music != "" ? "󰝚  ${music}" : ""})))
-
-(defwidget metric [label name ?align ?class value ?tooltip]
-  (box
-    :tooltip {tooltip ?: "${name}: ${round(value,1)}%"}
-    :class "metric"
-    :hexpand true
-    (overlay
-      (circular-progress
-        :value value
-        :class "inner"
-        :start-at 25
-        :clockwise true
-        :width 30
-        :height 30
-        :thickness 3
-      )
-      (label 
-        :xalign {align ?: 0.5}
-        :class {class ?: name}
-        :text label
-      )
-  ))
-)
-(defwidget stacked_metric [label name name2 ?align ?yalign ?class value value2 ?tooltip]
-  (box
-    :tooltip {tooltip ?: "${name}: ${round(value,1)}%${newline}${name2}: ${round(value2, 1)}%"}
-    :class "metric"
-    :hexpand true
-    (overlay
-      (circular-progress
-        :value value
-        :class "outer"
-        :start-at 25
-        :clockwise true
-        :width 34
-        :height 34
-        :thickness 3
-      )
-      (circular-progress
-        :value value2
-        :class "inner"
-        :start-at 25
-        :clockwise true
-        :width 28
-        :height 28
-        :halign "center"
-        :thickness 3
-      )
-      (label 
-        :xalign {align ?: 0.5}
-        :yalign {yalign ?: 0.5}
-        :class {class ?: name}
-        :text label
-      )
-  ))
-)
-
-
-(defwidget toggle [label status ?onchecked ?onunchecked ?align ?class ?tooltip]
-  (box
-    :class "toggle"
-    (eventbox
-      :width 20
-      :height 34
-      :class "${status ? "selected" : ""} selectable"
-      :onclick { status ? onunchecked : onchecked }
-      (label 
-        :xalign {align ?: 0.5}
-        :class class
-        :text label
-      )
-    )
   )
 )
 
-
-
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
-
-(deflisten volume :initial "0"
-  "scripts/watchvol"
-)
-
-(deflisten volume_mute :initial "yes"
-  "scripts/watchmute"
-)
-
-(deflisten brightness :initial "0"
-  "scripts/watchbrightness"
-)
-
-(deflisten kbd_brightness :initial "0"
-  "scripts/watchkbdbrightness"
-)
-
-(defvar newline
-"
-"
-)
-
-(defvar tab "	")
-
-(defpoll battery :interval "1s" :initial '{"percentage": 0}'
-  "upower -i /org/freedesktop/UPower/devices/battery_BAT0 | jc --upower -dd | jq .[0].detail"
-)
-
-(defpoll rotation_lock :interval "0.3s" :initial "S"
-  "ps hos -C rot8 || echo 'T'"
-)
-
-(deflisten tablet_mode :initial "deactivated"
-  "touch /var/run/user/1000/tablet && chmod 0666 /var/run/user/1000/tablet && tail -f /var/run/user/1000/tablet"
-)
+(defwidget volume [] (box))
+(defwidget system [] (box))
 

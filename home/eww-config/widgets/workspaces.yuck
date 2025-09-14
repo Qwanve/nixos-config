@@ -1,0 +1,34 @@
+; TODO: Close button, open button, limit width?
+(deflisten ws :initial "[]" "scripts/workspaces.sh")
+(defwidget workspaces []
+  (box
+    :space-evenly false
+    :class "workspaces"
+    :halign "start"
+    :hexpand false
+      (for w in ws
+          (workspace
+            :title {w.name}
+            :name {w.name}
+            :focused {w.focused}
+          )
+      )
+  )
+)
+(defwidget workspace [title name focused]
+  (transform
+    ; :scale-x "75%"
+    ; :scale-y "75%"
+      (button
+        :class {focused == true ? "focused workspace" : "unfocused workspace"}
+        :onclick "swaymsg -q workspace ${name}"
+        :valign "baseline"
+          (label :text {title})
+      )
+  )
+)
+
+(defvar isAddingWorkspace false)
+(defvar inputBuffer "")
+(defwidget partialWorkspace [] (revealer :transition "none" :reveal isAddingWorkspace (input :class "newws" :value inputBuffer :onaccept "swaymsg workspace {} && eww --config ~/Projects/eww-new update isAddingWorkspace=false inputBuffer=''")))
+(defwidget addWorkspace [] (button :class "addws" :onclick "eww --config ~/Projects/eww-new update isAddingWorkspace=true" (label :text "+")))

@@ -1,0 +1,7 @@
+(defwidget clock []
+  (box
+    :class "clock"
+    :tooltip {formattime(EWW_TIME, '%H:%M:%S%n%a %b %d, %Y%n(%F)')}
+    {formattime(EWW_TIME, '%H:%M')}
+  )
+)
