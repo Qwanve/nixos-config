@@ -1,4 +1,4 @@
-{config, pkgs, catppuccin, ...}:
+{config, pkgs, catppuccin, hostname, ...}:
 {
   home.packages = [
     pkgs.fd
@@ -40,8 +40,8 @@
       cat = "bat -p";
     };
     shellAbbrs = {
-      nrsf = "nixos-rebuild switch --flake ~/nixos-config/ --sudo";
-      nrtf = "nixos-rebuild test --flake ~/nixos-config/ --sudo";
+      nrsf = "nixos-rebuild switch --flake ~/nixos-config/#${hostname} --sudo";
+      nrtf = "nixos-rebuild test --flake ~/nixos-config/#${hostname} --sudo";
       mp = "mount /dev/disk/by-id/usb-RPI_RP2_E0C9125B0D9B-0:0-part1";
     };
   };
