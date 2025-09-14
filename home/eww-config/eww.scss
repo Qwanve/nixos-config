@@ -2,6 +2,12 @@
 	all: unset;
 }
 
+tooltip {
+	background-color: #21222c;
+	border-color: #FFFFFF;
+	border-radius: 7px;
+}
+
 .bar {
 	background-color: #21222c;
 	padding: 0.3em 0px;
