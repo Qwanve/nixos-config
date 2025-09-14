@@ -20,7 +20,6 @@
     };
 
     imports = [
-      # ../home/hypr.nix
       ./home/sway.nix
       ./home/gui.nix
       ./home/cli.nix
