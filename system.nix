@@ -81,9 +81,7 @@
   #     wrapRuntimeDeps = false;
   #   };
   # };
-  programs.hyprland = {
-    enable = false;
-  };
+  programs.sway.enable = true;
   programs.fish.enable = true;
   # programs.bash = {
   #   interactiveShellInit = ''
@@ -275,7 +273,6 @@
     };
   };
 
-  programs.dconf.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
