@@ -2,13 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, hostname, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware.nix
-      inputs.chromebook-ucm-conf.nixosModules.default
-    ];
+      ./${hostname}/hardware.nix
+    ] ++ (if hostname == "nyx" then [inputs.chromebook-ucm-conf.nixosModules.default] else []);
 
   # hardware.opengl.enable = true;
   hardware.graphics = {
@@ -20,7 +19,7 @@
     extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
   };
 
-  hardware.sensor.iio.enable = true;
+  hardware.sensor.iio.enable = hostname == "nyx";
   hardware.firmware = [
     pkgs.sof-firmware
   ];
@@ -38,7 +37,7 @@
     "mem_sleep_default=deep"
   ];
 
-  networking.hostName = "nyx"; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -83,7 +82,7 @@
   #   };
   # };
   programs.hyprland = {
-    enable = true;
+    enable = false;
   };
   programs.fish.enable = true;
   # programs.bash = {
@@ -100,7 +99,7 @@
 
   # List services that you want to enable:
   
-  services.tlp.enable = true;
+  services.tlp.enable = hostname == false;
 
   services.keyd = {
     enable = true;

@@ -29,12 +29,14 @@
     chromebook-ucm-conf.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs: {
-    nixosConfigurations.nyx = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+  let config = hostname:
+    nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs.inputs = inputs;
+      specialArgs.hostname = hostname;
       modules = [
-        ./nyx/system.nix
+        ./system.nix
         home-manager.nixosModules.home-manager
         {
           # home-manager.useGlobalPkgs = true;
@@ -43,8 +45,11 @@
             inputs.nix-index-database.homeModules.nix-index
             inputs.stylix.homeModules.stylix
           ];
-          home-manager.users.chrx = import ./nyx/home.nix;
-          home-manager.extraSpecialArgs.inputs = inputs;
+          home-manager.users.chrx = import ./home.nix;
+          home-manager.extraSpecialArgs = {
+            inputs = inputs;
+            hostname = hostname;
+          };
         }
 
         # inputs.lix-module.nixosModules.default
@@ -53,30 +58,8 @@
           nix.channel.enable = false;
         }
       ];
-    };
-    nixosConfigurations.void = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs.inputs = inputs;
-      modules = [
-        ./void/system.nix
-        home-manager.nixosModules.home-manager
-        {
-          # home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.sharedModules = [
-            inputs.nix-index-database.homeModules.nix-index
-            inputs.stylix.homeModules.stylix
-          ];
-          home-manager.users.chrx = import ./void/home.nix;
-          home-manager.extraSpecialArgs.inputs = inputs;
-        }
-
-        # inputs.lix-module.nixosModules.default
-
-        {
-          nix.channel.enable = false;
-        }
-      ];
-    };
+  }; in {
+    nixosConfigurations.nyx = config "nyx";
+    nixosConfigurations.void = config "void";
   };
 }
