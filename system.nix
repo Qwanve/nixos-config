@@ -163,6 +163,21 @@
 
   xdg.portal = {
     enable = true;
+    wlr.enable = true;
+    config = {
+      common = {
+        default = [
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Screencast" = [
+          "wlr"
+        ];
+        "org.freedesktop.impl.portal.Screenshot" = [
+          "wlr"
+        ];
+      };
+    };
+    # extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
