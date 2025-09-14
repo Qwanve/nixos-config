@@ -1,10 +1,7 @@
 { config, pkgs, catppuccin, ... }:
 {
   stylix.enable = true;
-  stylix.image = pkgs.fetchurl {
-    url = "https://cdna.artstation.com/p/assets/images/images/002/446/988/large/alena-aenami-mountains1k.jpg?1461838329";
-    sha256 = "sha256-Kcul1brR4vmuOgEZV7ON69RjF2+BWV6zutqUgBzvGus=";
-  };
+  stylix.image = ./wallpaper.jpg;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
   stylix.polarity = "dark";
   stylix.cursor = {
