@@ -8,6 +8,7 @@
     pkgs.signal-desktop
     pkgs.overskride
     pkgs.bolt-launcher
+    pkgs.vesktop
   ];
 
   home.sessionVariables = {
