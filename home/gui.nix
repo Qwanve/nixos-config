@@ -47,4 +47,10 @@
     longitude = -93.5;
   };
 
+  gtk.enable = true;
+  gtk.iconTheme = {
+    name = "Pop";
+    package = pkgs.pop-icon-theme;
+  };
+
 }
