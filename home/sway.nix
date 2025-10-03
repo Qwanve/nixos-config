@@ -50,6 +50,21 @@
         {command = "${pkgs.batsignal}/bin/batsignal -n BAT0 -d4 -D 'notify-send \"Battery critical\" \"Battery at 3%\" -u critical'";}
         {command = "${pkgs.autotiling}/bin/autotiling";}
       ];
+      window.commands = [
+        {
+          command = "floating enable; sticky enable";
+          criteria = {
+            title = "Picture-in-Picture";
+            app_id = "firefox";
+          };
+        }
+        {
+          command = "inhibit_idle fullscreen";
+          criteria = {
+            app_id = "firefox";
+          };
+        }
+      ];
       gaps = {
         outer = 5;
         inner = 5;
