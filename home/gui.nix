@@ -53,4 +53,30 @@
     package = pkgs.pop-icon-theme;
   };
 
+
+  services.easyeffects = {
+    enable = true;
+    extraPresets = {
+      Noise = {
+        input = {
+          blocklist = [];
+          plugins_order = [
+            "rnnoise#0"
+          ];
+          "rnnoise#0" = {
+              bypass = false;
+              enable-vad = false;
+              input-gain = 0.0;
+              model-name = "";
+              output-gain = 5.7;
+              release = 20.0;
+              vad-thres = 53.0;
+              wet = 0.0;
+          };
+        };
+      };
+    };
+    preset = "Noise";
+  };
+
 }
