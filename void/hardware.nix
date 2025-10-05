@@ -26,6 +26,13 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
+  fileSystems."/home/chrx/Games" =
+    { device = "/dev/disk/by-uuid/D2F4E291F4E276DF";
+      fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000" ];
+      
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

@@ -26,6 +26,14 @@
         "eDP-1" = {
           scale = "1.566667";
         };
+        "DP-3" = {
+          position = "1920 0";
+          render_bit_depth = "10";
+          adaptive_sync = "enable";
+        };
+        "HDMI-A-1" = {
+          position = "0 360";
+        };
       };
       input = {
         "1267:191:Elan_Touchpad" = {
