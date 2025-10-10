@@ -98,6 +98,8 @@
         "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
         "${modifier}+XF86Sleep" = "exec ${pkgs.swaylock-effects}/bin/swaylock --fade 0.5 --grace 3";
+
+        "${modifier}+u" = "seat - pointer_constraint escape";
       };
     };
     # Bug: https://github.com/nix-community/home-manager/issues/5379
