@@ -156,6 +156,17 @@
     alsa.enable = true;
     pulse.enable = true;
     wireplumber.enable = true;
+
+    configPackages = [
+      (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/99-min-quantum.conf"
+        ''
+          context.properties = {
+            default.clock.min-quantum = 3096
+            default.clock.max-quantum = 4096
+          }
+        ''
+      )
+    ];
   };
 
   # services.blueman.enable = true;
