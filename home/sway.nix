@@ -59,6 +59,13 @@
           };
         }
         {
+          command = "floating enable";
+          criteria = {
+            title = "Extension:";
+            app_id = "firefox";
+          };
+        }
+        {
           command = "inhibit_idle fullscreen";
           criteria = {
             app_id = "firefox";
