@@ -1,36 +1,33 @@
-
-(defwidget battery []
-  (overlay
-    :halign "center"
-    :class {EWW_BATTERY.BAT0.status + " battery"}
-      (battery_icon)
-    ; (battery_label)
+(defwidget battery [?battery]
+  (eventbox
+    :visible {EWW_BATTERY != ""}
+    :onhover "${EWW_CMD} update reveal_battery=true"
+    :onhoverlost "${EWW_CMD} update reveal_battery=false"
+    (box
+      :class {EWW_BATTERY?.[battery]?.status + ((EWW_BATTERY?.[battery]?.capacity?: 0) < 15? " low_battery" : "") + " battery"}
+      :space-evenly false
+      (revealer
+        :reveal reveal_battery
+        :transition "slideleft"
+        (battery_label :battery battery)
+      )
+      (battery_icon :battery battery)
+    )
   )
 )
 
-(defwidget battery_label []
+(defvar reveal_battery false)
+
+(defwidget battery_label [?battery]
   (label
       :class "battery_label"
-      :justify "center"
-      :text {(EWW_BATTERY.BAT0.status == "Charging" ? '󱐋' : '') + EWW_BATTERY.BAT0.capacity}
+      :text {EWW_BATTERY?.[battery]?.capacity + "%"}
   )
 )
 
-(defwidget battery_icon []
-  (label
-      :class {(EWW_BATTERY.BAT0.capacity < 15 ? "low_battery" : "") + " battery_icon"}
-      :justify "right"
-      :angle "-90"
-      :text "${EWW_BATTERY.BAT0.capacity == 100 ? "󰁹" :
-               EWW_BATTERY.BAT0.capacity >   90 ? "󰂂" :
-               EWW_BATTERY.BAT0.capacity >   80 ? "󰂁" :
-               EWW_BATTERY.BAT0.capacity >   70 ? "󰂀" :
-               EWW_BATTERY.BAT0.capacity >   60 ? "󰁿" :
-               EWW_BATTERY.BAT0.capacity >   50 ? "󰁾" :
-               EWW_BATTERY.BAT0.capacity >   40 ? "󰁽" :
-               EWW_BATTERY.BAT0.capacity >   30 ? "󰁼" :
-               EWW_BATTERY.BAT0.capacity >   20 ? "󰁻" :
-               EWW_BATTERY.BAT0.capacity >   10 ? "󰁺" : "󰂎"
-              }"
+(defwidget battery_icon [?battery]
+  (image
+    :class "battery_icon"
+    :icon "battery-level-${floor((EWW_BATTERY?.[battery]?.capacity?: 0) / 10) * 10}${EWW_BATTERY?.[battery]?.status == "Charging"? EWW_BATTERY?.[battery]?.capacity == 100? "-charged" : "-charging": ""}"
   )
 )

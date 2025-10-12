@@ -1,7 +1,23 @@
 (defwidget clock []
-  (box
-    :class "clock"
-    :tooltip {formattime(EWW_TIME, '%H:%M:%S%n%a %b %d, %Y%n(%F)')}
-    {formattime(EWW_TIME, '%H:%M')}
+  (eventbox
+    :onhover "${EWW_CMD} update reveal_clock=true"
+    :onhoverlost "${EWW_CMD} update reveal_clock=false"
+    (box
+      :space-evenly false
+      :class "clock_container"
+      (box
+        :class "clock"
+        :tooltip {formattime(EWW_TIME, '%H:%M:%S%n%a %b %d, %Y%n(%F)')}
+        {formattime(EWW_TIME, '%H:%M')}
+      )
+      (revealer
+        :reveal reveal_clock
+        :transition "slideleft"
+        :class "seconds"
+        {formattime(EWW_TIME, ':%S')}
+      )
+    )
   )
 )
+
+(defvar reveal_clock false)

@@ -1,17 +1,10 @@
 (defwidget launcher []
-    (box
-      :space-evenly false
-      :class "launcher"
-      (transform
-        ; :scale-y "85%"
-        ; :scale-x "85%"
-        (button
-          :onclick "pkill -x tofi-drun || tofi-drun --width 80% --height 80% | xargs -r swaymsg exec -- &"
-            ; (transform
-            ; :scale-y "117%"
-            ; :scale-x "117%"
-            (label :text "")
-        )
-      )
+  (box
+    :space-evenly false
+    :class "launcher"
+    (button
+      :onclick "pkill -x tofi-drun || tofi-drun --width 80% --height 80% | xargs -r swaymsg exec -- &"
+      (image)
     )
+  )
 )

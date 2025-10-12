@@ -1,0 +1,59 @@
+(defwidget volume []
+  (eventbox
+    :onhover "${EWW_CMD} update reveal_volume=true"
+    :onhoverlost "${EWW_CMD} update reveal_volume=false"
+    ; :onrightclick "echo change!"
+    (box
+      :space-evenly false
+      (revealer
+        :reveal reveal_volume
+        :transition "slideright"
+        (box
+          :space-evenly false
+          (progress :value volume :valign "center" :class {volume > 100 ? "overloaded_volume" : ""})
+          (eventbox
+            :onclick "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+            :onhover "${EWW_CMD} update hover_mic=true"
+            :onhoverlost "${EWW_CMD} update hover_mic=false"
+            (image
+              :class {"mic volume" +(hover_mic? " hover" : "") + (micmute == "yes"? " mute" : "")}
+              :icon {micmute =="yes"? "microphone-sensitivity-muted" : "microphone-sensitivity-high"}
+            )
+          )
+        )
+      )
+      (eventbox
+        :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        :onhover "${EWW_CMD} update hover_vol=true"
+        :onhoverlost "${EWW_CMD} update hover_vol=false"
+        (image
+          :class {"speaker volume" + (volume > 100? " overloaded_volume" : "") + (hover_vol? " hover" : "") + (mute == "yes"? " mute" : "")}
+          :icon {mute == "yes"? "audio-volume-muted"
+                  : volume > 100? "audio-volume-overamplified"
+                  : volume > 50? "audio-volume-high"
+                  : volume > 10? "audio-volume-medium"
+                  : "audio-volume-low"}
+        )
+      )
+    )
+  )
+)
+
+(defvar reveal_volume false)
+(defvar hover_vol false)
+(defvar hover_mic false)
+
+(deflisten mute :initial "yes"
+  "./scripts/watchmute.sh"
+)
+
+(deflisten micmute :initial "yes"
+  "./scripts/watchmicmute.sh"
+)
+
+(deflisten volume :initial 0
+  "./scripts/watchvol.sh"
+)
+
+; (defpoll sinks :interval "5s" "pactl --format=json list sinks | jq '[.[].properties.\"node.nick\"']" )
+; (defpoll sources :interval "5s" "pactl --format=json list sources | jq '[.[] | select(.monitor_source == \"\").properties.\"node.nick\"]'")

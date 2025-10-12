@@ -1,0 +1,52 @@
+(defwidget music []
+    ; (box :hexpand true :visible {music_visible != ""}
+      (eventbox
+        :visible {music_visible != ""}
+        :onhover "${EWW_CMD} update music_hover=true"
+        :onhoverlost "${EWW_CMD} update music_hover=false"
+        :class "music"
+        (box
+          :space-evenly false
+          (revealer
+            :reveal music_hover
+            :transition "slideright"
+            (box
+              :space-evenly false
+              (label :text {(music_visible?.artist) + " - " + (music_visible?.title)})
+              (eventbox
+                :onhover "${EWW_CMD} update play_hover=true"
+                :onhoverlost "${EWW_CMD} update play_hover=false"
+                :onclick "playerctl play-pause"
+                (image
+                  :class {(play_hover? "hover " : "") + "playpause" }
+                  :icon {music_visible?.status == "Paused"? "media-playback-start" : "media-playback-pause"}
+                )
+              )
+            )
+          )
+          (image :icon "emblem-music" :class "music_icon")
+        )
+    ;     (stack
+    ;       :selected {music_hover? 1 : 0}
+    ;       :transition "slidedown"
+    ;       :same-size true
+    ;       (label :text {(music_visible?.artist) + " - " + (music_visible?.title)})
+    ;       (box
+    ;         :space-evenly false
+    ;         (image :icon "media-playback-start")
+    ;         (image :icon "media-skip-forward")
+    ;         (label :text {music_visible?.position})
+    ;         (progress :valign "center" :value {0})
+    ;         (label :text {music_visible?.length})
+    ;       )
+
+    ;     )
+    ;   )
+    )
+)
+
+(deflisten music_visible
+  'playerctl --follow metadata --format \'{"artist": "{{ markup_escape(artist) }}", "title": "{{ markup_escape(title) }}", "status": "{{status}}" }\''
+)
+(defvar music_hover false)
+(defvar play_hover false)

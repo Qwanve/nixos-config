@@ -2,6 +2,8 @@
 (include "./widgets/battery.yuck")
 (include "./widgets/clock.yuck")
 (include "./widgets/launcher.yuck")
+(include "./widgets/volume.yuck")
+(include "./widgets/music.yuck")
 
 (defwindow bar
     :monitor 0
@@ -13,32 +15,29 @@
     :stacking "bg"
     :windowtype "dock"
     :wm-ignore false
-    :focusable true
   (centerbox
     ; Left side
     (box
+      :halign "start"
       :space-evenly false
         (launcher)
         (workspaces)
     )
     ; Center
-    (box)
+    (box :visible false)
+
     ; Right
     (box
       :space-evenly false
       :halign "end"
-        (partialWorkspace)
-        (addWorkspace)
-        (label :width 10 :text "|" :class "separator")
+        ; (label :text "|" :class "separator")
+        (music)
         (volume)
         (system)
-        (battery)
+        (battery :battery "BAT0")
         (clock)
     )
-
   )
 )
 
-(defwidget volume [] (box))
 (defwidget system [] (box))
-
