@@ -71,6 +71,12 @@
             app_id = "firefox";
           };
         }
+        {
+          command = "inhibit_idle fullscreen";
+          criteria = {
+            instance = "steam_app_";
+          };
+        }
       ];
       gaps = {
         outer = 5;
