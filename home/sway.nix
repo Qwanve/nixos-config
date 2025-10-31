@@ -45,7 +45,7 @@
       startup = [
         {command = "${pkgs.kdePackages.polkit-kde-agent-1}/usr/lib/polkit-kde-authentication-agent-1";}
         {command = "${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar";}
-        {command = "${pkgs.rot8}/bin/rot8 -n1e4 -X -k & pkill -x -STOP rot8";}
+        # {command = "${pkgs.rot8}/bin/rot8 -n1e4 -X -k & pkill -x -STOP rot8";}
         {command = "rm /home/chrx/.cache/tofi-drun";}
         {command = "${pkgs.batsignal}/bin/batsignal -n BAT0 -d4 -D 'notify-send \"Battery critical\" \"Battery at 3%\" -u critical'";}
         {command = "${pkgs.autotiling}/bin/autotiling";}
