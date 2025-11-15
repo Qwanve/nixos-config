@@ -1,7 +1,6 @@
 {config, pkgs, lib, inputs, catppuccin, ...}:
 {
   home.packages = [
-    # pkgs.tofi
     pkgs.libnotify
     pkgs.nerd-fonts.symbols-only
     pkgs.tofi
@@ -77,6 +76,12 @@
             instance = "steam_app_";
           };
         }
+        {
+          command = "floating enable";
+          criteria = {
+            app_id = "bluetui-popup";
+          };
+        }
       ];
       gaps = {
         outer = 5;
@@ -89,6 +94,7 @@
         "${modifier}+d" = "exec 'pkill ${pkgs.tofi}/bin/tofi-drun || ${pkgs.tofi}/bin/tofi-drun --width 80% --height 80% | xargs swaymsg exec --'";
 
         "${modifier}+f" = "exec firefox";
+        "${modifier}+b" = "exec foot --app-id bluetui-popup ${pkgs.bluetui}/bin/bluetui";
         "${modifier}+backslash" = "floating toggle";
         "${modifier}+space" = "fullscreen toggle";
         "CTRL+1" = "workspace 1";

@@ -6,7 +6,6 @@
     pkgs.steam
     pkgs.imv
     pkgs.signal-desktop
-    pkgs.overskride
     pkgs.bolt-launcher
     pkgs.vesktop
   ];
