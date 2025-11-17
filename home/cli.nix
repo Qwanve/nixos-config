@@ -5,7 +5,7 @@
     pkgs.xdg-utils
     pkgs.zip
     pkgs.unzip
-    pkgs.du-dust
+    pkgs.dust
     pkgs.file
     pkgs.bottom
     pkgs.jujutsu
@@ -48,15 +48,17 @@
 
   programs.git = {
     enable = true;
-    userEmail = "strohdaniel624@gmail.com";
-    userName = "Daniel Stroh";
-    extraConfig = {
+    settings = {
+      user = {
+        email = "strohdaniel624@gmail.com";
+        name = "Daniel Stroh";
+      };
       init = {
         defaultBranch = "main";
       };
     };
-    difftastic.enable = true;
   };
+  programs.difftastic.enable = true;
 
   programs.helix = {
     enable = true;

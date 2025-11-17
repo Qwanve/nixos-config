@@ -157,8 +157,9 @@
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/99-min-quantum.conf"
         ''
           context.properties = {
-            default.clock.min-quantum = 3096
-            default.clock.max-quantum = 4096
+            default.clock.quantum = 4096
+            default.clock.min-quantum = 2048
+            default.clock.max-quantum = 8192
           }
         ''
       )
