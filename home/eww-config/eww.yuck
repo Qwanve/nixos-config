@@ -10,7 +10,7 @@
     :exclusive true
     :geometry (geometry
         :width "100%"
-        :height "4%"
+        :height "1%"
         :anchor "top center")
     :stacking "bg"
     :windowtype "dock"
@@ -19,21 +19,26 @@
     ; Left side
     (box
       :halign "start"
-      :space-evenly false
-        (launcher)
         (workspaces)
     )
     ; Center
-    (box :visible false)
+    (expander
+      :expanded true
+        (revealer
+          ; :valign "start"
+          :reveal reveal_volume
+          :transition "slidedown"
+          (volume)
+        )
+    )
 
     ; Right
     (box
       :space-evenly false
       :halign "end"
         ; (label :text "|" :class "separator")
-        (music)
-        (volume)
-        (system)
+        ; (music)
+        ; (system)
         (battery :battery "BAT0")
         (clock)
     )
@@ -41,3 +46,4 @@
 )
 
 (defwidget system [] (box))
+(defvar reveal_volume true)

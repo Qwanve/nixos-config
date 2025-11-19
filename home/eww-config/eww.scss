@@ -2,25 +2,24 @@
 	all: unset;
 }
 
-/* .bar { */
-	/* background-color: #21222c; */
-	/* padding: 0.3em 0px; */
-/* } */
-
 .bar {
-	margin: 0.3em 0 0 0;
+	margin: 0.2em 0 0 0;
 }
 
 
 box.bar > box {
 	background-color: #21222c;
 	border-radius: 30px;
-	padding: 0.4em 0.9em;
+	padding: 1px 6px;
 	margin: 0 0.3em;
 	
 }
 
-window {
+box.bar progressbar {
+	padding: 2px;
+}
+
+window { 
 	color: #FFFFFF;
 }
 
@@ -40,132 +39,79 @@ tooltip {
 	padding: 0.0em 0.3em;
 }
 
-button {
-	background-color: shade(#343746, 1);
-	min-width: 1.6em;
-	min-height: 1.6em;
-}
-button:hover {
-	background-color: shade(#343746, 1.5);
-}
-
-button.focused {
-	background-color: shade(#343746, 1.75);
-}
-button.focused label {
+/* clock widget */
+.clock_container {
+	margin: -1px 0 -2px 0;
+	font-size: 60%;
 	font-weight: bold;
 }
-button.focused:hover {
-	background-color: shade(#343746, 2);
+
+
+/* battery widget */
+progressbar.low_battery progress {
+	background-color: shade(#ff5555, 1.15);
 }
 
-.clock_container {
-	margin: 0em 0.3em 0em 0.8em;
+progressbar.Charging progress {
+		background-color: shade(#50fa7b, 1.15);
 }
 
-.battery_icon {
-	font-size: 1.4em;
-	margin: 0em 0.3em 0em 0.3em;
-	-gtk-icon-transform: rotate(90deg) scale(1.5);
-
-}
-
-.battery_label {
-	margin: 0 0 0 0.5em;
-}
-
-.low_battery {
-	label,image {
-		color: shade(#ff5555, 1.15);
-	}
-}
-
-.Charging {
-	label,image {
-		color: shade(#50fa7b, 1.15);
-	}
-}
-
-.separator {
-	font-size: 150%;
-	margin: 0em 0em 0em 0.3em;
-}
-
-.addws {
-	border-radius: 7px;
-}
-.addws label {
-	padding: 0em 0.5em;
-}
-
-button {
-	border-radius: 7px;
-}
-button label {
-	padding: 0em 0.5em;
-}
-
-.launcher label {
-	font-size: 1.3em;
-}
-
-.launcher {
-	margin: 0em 0.6em 0em 0em;
-}
-
-.workspace {
-	margin: 0em 0.2em 0em 0em;
-}
-
-.newws {
-	background-color: #343746;
-	border-radius: 7px;
-	margin: 0em 0.2em;
+progressbar {
+	padding: 0 0.5em 0 0.2em;
+	margin-right: 0.5em;
+	
 }
 
 progress {
-	background-color: #ffb86c;
+	background-color: white;
 	border-radius: 5px;
 }
 
 trough {
-	background-color: #343746;
+	background-color: #444756;
 	border-radius: 5px;
+	min-width: 40px;
 }
 
+/* volume widget */
 .overloaded_volume progress {
 	background-color: #ff5555;
 }
+.speaker {
+	-gtk-icon-transform: scale(0.7);
+	margin: -3px 0;
+}
 
-.volume.overloaded_volume {
-	color: #ff5555;
+.overloaded_volume .speaker {
+	color: #FF5555;
 }
 
 .volume {
-	/* font-size: 1.4em; */
-	margin: 0 0.3em 0 0.3em;
+	margin: 0;
+	padding: 0;
 }
 
-.volume.hover {
-	-gtk-icon-transform: scale(1.2);
+.volume trough {
+	min-width: 80px;
 }
 
-.volume.speaker {
-	-gtk-icon-transform: scale(1.2);
-}
-.volume.speaker.hover {
-	-gtk-icon-transform: scale(1.4);
-}
-
-.volume.mute {
-	color: #ff5555;
+/* workspace widget */
+.workspaces {
+	margin: 0px 0;
+	padding: 3px 0;
 }
 
-.playpause.hover {
-	-gtk-icon-transform: scale(1.2);
+.workspace {
+	padding: 0em 0em 0em 0.6em;
+	margin: 0 0.2em;
+	background-color: gray;
+	border-radius: 8px;
+}
+.focused.workspace {
+	background-color: white;
+	padding-left: 1.5em;
 }
 
-.music_icon {
-	margin: 0 0.3em;
-	-gtk-icon-transform: scale(1.1);
+expander {
+	margin: -8px 0px;
 }

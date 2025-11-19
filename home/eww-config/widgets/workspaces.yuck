@@ -1,4 +1,3 @@
-; TODO: Close button, open button, limit width?
 (deflisten ws :initial "[]" "scripts/workspaces.sh")
 (defwidget workspaces []
   (box
@@ -8,18 +7,14 @@
     :hexpand false
       (for w in ws
           (workspace
-            :title {w.name}
-            :name {w.name}
-            :focused {w.focused}
+            :focused {w}
           )
       )
   )
 )
-(defwidget workspace [title name focused]
-  (button
+(defwidget workspace [focused]
+  (box
     :class {focused == true ? "focused workspace" : "unfocused workspace"}
-    :onclick "swaymsg -q workspace ${name}"
     :valign "baseline"
-      (label :text {title})
   )
 )

@@ -1,33 +1,7 @@
 (defwidget battery [?battery]
-  (eventbox
-    :visible {EWW_BATTERY != ""}
-    :onhover "${EWW_CMD} update reveal_battery=true"
-    :onhoverlost "${EWW_CMD} update reveal_battery=false"
-    (box
-      :class {EWW_BATTERY?.[battery]?.status + ((EWW_BATTERY?.[battery]?.capacity?: 0) < 15? " low_battery" : "") + " battery"}
-      :space-evenly false
-      (revealer
-        :reveal reveal_battery
-        :transition "slideleft"
-        (battery_label :battery battery)
-      )
-      (battery_icon :battery battery)
-    )
-  )
-)
-
-(defvar reveal_battery false)
-
-(defwidget battery_label [?battery]
-  (label
-      :class "battery_label"
-      :text {EWW_BATTERY?.[battery]?.capacity + "%"}
-  )
-)
-
-(defwidget battery_icon [?battery]
-  (image
-    :class "battery_icon"
-    :icon "battery-level-${floor((EWW_BATTERY?.[battery]?.capacity?: 0) / 10) * 10}${EWW_BATTERY?.[battery]?.status == "Charging"? EWW_BATTERY?.[battery]?.capacity == 100? "-charged" : "-charging": ""}"
+  (progress :value {EWW_BATTERY?.[battery]?.capacity?: 0}
+      :visible {EWW_BATTERY != ""}
+      :class {EWW_BATTERY?.[battery]?.status + ((EWW_BATTERY?.[battery]?.capacity?: 0) < 15? " low_battery" : "")}
+      :tooltip {(EWW_BATTERY?.[battery]?.capacity?: 0) + "%"}
   )
 )
