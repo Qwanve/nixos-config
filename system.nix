@@ -79,6 +79,7 @@
   #   };
   # };
   programs.sway.enable = true;
+  programs.niri.enable = true;
   programs.fish.enable = true;
   # programs.bash = {
   #   interactiveShellInit = ''
@@ -106,10 +107,10 @@
           "rightalt" = "layer(rightalt)";
         };
         "meta" = {
-          "j" = "down";
-          "k" = "up";
-          "h" = "left";
-          "l" = "right";
+          # "j" = "down";
+          # "k" = "up";
+          # "h" = "left";
+          # "l" = "right";
           "1" = "f1";
           "2" = "f2";
           "3" = "f3";
@@ -141,7 +142,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.swayfx}/share/wayland-sessions:${pkgs.fish}/share/applications";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.swayfx}/share/wayland-sessions:${pkgs.fish}/share/applications:${pkgs.niri}/share/wayland-sessions";
         user = "greeter";
       };
     };

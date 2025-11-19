@@ -21,6 +21,7 @@
 
     imports = [
       ./home/sway.nix
+      ./home/niri.nix
       ./home/gui.nix
       ./home/cli.nix
       ./home/stylix.nix
