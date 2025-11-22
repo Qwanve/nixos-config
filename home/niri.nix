@@ -2,6 +2,7 @@
 {
   home.packages = [
     pkgs.fuzzel
+    pkgs.xwayland-satellite
   ];
 
   services.wpaperd = {
