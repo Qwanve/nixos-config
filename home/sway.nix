@@ -179,10 +179,10 @@
 
   services.swayidle = {
     enable = true;
-    events = [
-      { event = "before-sleep"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
-      { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock --fade-in 3 --grace 5"; }
-    ];
+    events = {
+      "before-sleep" = "${pkgs.swaylock-effects}/bin/swaylock";
+      "lock" = "${pkgs.swaylock-effects}/bin/swaylock --fade-in 3 --grace 5";
+    };
     timeouts = [
       { timeout = 120; command = "${pkgs.swaylock-effects}/bin/swaylock --fade-in 3 --grace 5"; }
       { timeout = 180; command = "${pkgs.swayfx}/bin/swaymsg 'output * power off'"; resumeCommand = "${pkgs.swayfx}/bin/swaymsg 'output * power on'"; }
