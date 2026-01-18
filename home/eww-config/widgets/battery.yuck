@@ -1,7 +1,0 @@
-(defwidget battery [?battery]
-  (progress :value {EWW_BATTERY?.[battery]?.capacity?: 0}
-      :visible {EWW_BATTERY != ""}
-      :class {EWW_BATTERY?.[battery]?.status + ((EWW_BATTERY?.[battery]?.capacity?: 0) < 15? " low_battery" : "")}
-      :tooltip {(EWW_BATTERY?.[battery]?.capacity?: 0) + "%"}
-  )
-)

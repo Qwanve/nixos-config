@@ -1,4 +1,0 @@
-Audio picker
-Wifi module / picker
-Music controls
-Sys module
