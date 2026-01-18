@@ -159,12 +159,50 @@
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/99-min-quantum.conf"
         ''
           context.properties = {
-            default.clock.quantum = 4096
-            default.clock.min-quantum = 2048
-            default.clock.max-quantum = 8192
+            default.clock.quantum = 512
+            default.clock.min-quantum = 512
+            default.clock.max-quantum = 1024
           }
         ''
       )
+    ];
+    wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-edgar.conf" ''
+        monitor.alsa.rules = [
+          {
+            matches = [{node.name = "alsa_output.pci-0000_00_1f.3-platform-tgl_rt5682_def.HiFi__Speaker__sink"}]
+            actions = {
+              update-props = {
+                node.description = "Laptop Speakers"
+              }
+            }
+          },
+          {
+            matches = [{node.name = "alsa_output.pci-0000_00_1f.3-platform-tgl_rt5682_def.HiFi__Headphones__sink"}]
+            actions = {
+              update-props = {
+                node.description = "Headphones"
+              }
+            }
+          },
+          {
+            matches = [{node.name = "alsa_input.hw_sofrt5682_99"}]
+            actions = {
+              update-props = {
+                node.description = "Internal Microphone"
+              }
+            }
+          },
+          {
+            matches = [{node.name = "alsa_input.pci-0000_00_1f.3-platform-tgl_rt5682_def.HiFi__Headset__source"}]
+            actions = {
+              update-props = {
+                node.description = "Headset Microphone"
+              }
+            }
+          },
+        ]
+      '')
     ];
   };
 
