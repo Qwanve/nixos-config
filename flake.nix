@@ -16,6 +16,9 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
+    dms.url = "github:AvengeMedia/DankMaterialShell/stable";
+    dms.inputs.nixpkgs.follows = "nixpkgs";
+
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -44,6 +47,7 @@
           home-manager.sharedModules = [
             inputs.nix-index-database.homeModules.nix-index
             inputs.stylix.homeModules.stylix
+            inputs.dms.homeModules.dank-material-shell
           ];
           home-manager.users.chrx = import ./home.nix;
           home-manager.extraSpecialArgs = {

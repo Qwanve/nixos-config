@@ -137,11 +137,11 @@
     ";
     xwayland = true;
   };
-  programs.eww = {
-    enable = true;
-    package = pkgs.eww;
-    configDir = ./eww-config;
-  };
+  # programs.eww = {
+  #   enable = true;
+  #   package = pkgs.eww;
+  #   configDir = ./eww-config;
+  # };
   services.mako = {
     enable = true;
   };

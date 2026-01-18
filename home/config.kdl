@@ -278,6 +278,8 @@ prefer-no-csd
 // The path is formatted with strftime(3) to give you the screenshot date and time.
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
+spawn-at-startup "dms" "run"
+
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
 
@@ -351,7 +353,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return { spawn "foot"; }
-    Mod+D { spawn "fuzzel"; }
+    Mod+D { spawn-sh "dms ipc spotlight toggle"; }
     Super+XF86Sleep { spawn "swaylock"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
@@ -360,10 +362,17 @@ binds {
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "dms ipc audio increment 5"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "dms ipc audio decrement 5"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "dms ipc audio mute"; }
+    Mod+XF86AudioMute     allow-when-locked=true { spawn-sh "dms ipc audio micmute"; }
+
+
+    XF86MonBrightnessUp            allow-when-locked=true { spawn-sh "dms ipc brightness increment 5 backlight:intel_backlight"; }
+    XF86MonBrightnessDown          allow-when-locked=true { spawn-sh "dms ipc brightness decrement 5 backlight:intel_backlight"; }
+    Mod+XF86MonBrightnessUp        allow-when-locked=true { spawn-sh "dms ipc brightness increment 5 leds:chromeos::kbd_backlight"; }
+    Mod+XF86MonBrightnessDown      allow-when-locked=true { spawn-sh "dms ipc brightness decrement 5 leds:chromeos::kbd_backlight"; }
+    
 
     Mod+Q { close-window; }
 
