@@ -68,6 +68,7 @@ prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 spawn-at-startup "dms" "run"
+spawn-at-startup "signal-desktop" "--start-in-tray"
 
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
