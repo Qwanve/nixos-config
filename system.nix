@@ -79,7 +79,7 @@
   #     wrapRuntimeDeps = false;
   #   };
   # };
-  programs.sway.enable = true;
+  # programs.sway.enable = true;
   programs.niri.enable = true;
   programs.fish.enable = true;
   # programs.bash = {
@@ -143,7 +143,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.swayfx}/share/wayland-sessions:${pkgs.fish}/share/applications:${pkgs.niri}/share/wayland-sessions";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --sessions ${pkgs.fish}/share/applications:${pkgs.niri}/share/wayland-sessions";
         user = "greeter";
       };
     };
@@ -155,54 +155,17 @@
     pulse.enable = true;
     wireplumber.enable = true;
 
+            # default.clock.quantum = 512
+            # default.clock.min-quantum = 256
+            # default.clock.max-quantum = 512
     configPackages = [
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/99-min-quantum.conf"
         ''
           context.properties = {
-            default.clock.quantum = 512
-            default.clock.min-quantum = 512
-            default.clock.max-quantum = 1024
+            default.clock.force-quantum = 512;
           }
         ''
       )
-    ];
-    wireplumber.configPackages = [
-      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-edgar.conf" ''
-        monitor.alsa.rules = [
-          {
-            matches = [{node.name = "alsa_output.pci-0000_00_1f.3-platform-tgl_rt5682_def.HiFi__Speaker__sink"}]
-            actions = {
-              update-props = {
-                node.description = "Laptop Speakers"
-              }
-            }
-          },
-          {
-            matches = [{node.name = "alsa_output.pci-0000_00_1f.3-platform-tgl_rt5682_def.HiFi__Headphones__sink"}]
-            actions = {
-              update-props = {
-                node.description = "Headphones"
-              }
-            }
-          },
-          {
-            matches = [{node.name = "alsa_input.hw_sofrt5682_99"}]
-            actions = {
-              update-props = {
-                node.description = "Internal Microphone"
-              }
-            }
-          },
-          {
-            matches = [{node.name = "alsa_input.pci-0000_00_1f.3-platform-tgl_rt5682_def.HiFi__Headset__source"}]
-            actions = {
-              update-props = {
-                node.description = "Headset Microphone"
-              }
-            }
-          },
-        ]
-      '')
     ];
   };
 
@@ -299,8 +262,6 @@
 
   networking.firewall.enable = false;
 
-  # virtualisation.waydroid.enable = true;
-
   security.shadow.enable = false;
   security.sudo.enable = false;
   security.sudo-rs.enable = true;
@@ -321,7 +282,6 @@
       logFailures = true;
     };
   };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

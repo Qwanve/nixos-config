@@ -1,4 +1,4 @@
-{ config, pkgs, catppuccin, ... }:
+{ config, pkgs, ... }:
 {
   stylix.enable = true;
   stylix.image = ./wallpaper.jpg;

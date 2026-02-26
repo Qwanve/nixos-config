@@ -22,12 +22,6 @@
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
-    catppuccin-foot-theme.url = "github:catppuccin/foot";
-    catppuccin-foot-theme.flake = false;
-
-    catppuccin-mako-theme.url = "github:catppuccin/mako";
-    catppuccin-mako-theme.flake = false;
-
     chromebook-ucm-conf.url = "github:Qwanve/chromebook-ucm-conf";
     chromebook-ucm-conf.inputs.nixpkgs.follows = "nixpkgs";
   };

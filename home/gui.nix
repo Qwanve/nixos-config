@@ -4,6 +4,7 @@
     (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) {})
     pkgs.prismlauncher
     pkgs.steam
+    pkgs.gamescope
     pkgs.imv
     pkgs.signal-desktop
     pkgs.bolt-launcher
