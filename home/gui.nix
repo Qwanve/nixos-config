@@ -1,7 +1,8 @@
-{config, pkgs, inputs, catppuccin, ...} :
+{config, pkgs, inputs, ...} :
 {
   home.packages = [
-    (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) {})
+    # (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) {})
+    pkgs.firefox
     pkgs.prismlauncher
     pkgs.steam
     pkgs.gamescope
@@ -15,6 +16,7 @@
     MOZ_USE_XINPUT2 = "1";
   };
 
+  # https://github.com/Supreeeme/xwayland-satellite/issues/225
   nixpkgs.overlays = [
     (final: prev: {
       steam = prev.steam.override {
@@ -27,32 +29,12 @@
 
   programs.foot = {
     enable = true;
-    # server.enable = true;
     settings = {
       main = {
-        # include = "${inputs.catppuccin-foot-theme}/themes/catppuccin-${catppuccin.lower.theme}.ini";
         shell = "${pkgs.fish}/bin/fish";
-        # dpi-aware = true;
-        
       };
     };
 
-  };
-
-  services.gammastep = {
-    enable = true;
-
-    # Denver
-    # latitude = 40.0;
-    # longitude = -105.0;
-
-    # Austin
-    # latitude = 30;
-    # longitude = 98;
-
-    # Haughton
-    latitude = 32.5;
-    longitude = -93.5;
   };
 
   gtk.enable = true;
