@@ -2,13 +2,7 @@
   description = "A simple NixOS flake";
 
   inputs = {
-    # NixOS official package source, using the nixos-24.05 branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # lix-module = {
-    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +30,6 @@
         ./system.nix
         home-manager.nixosModules.home-manager
         {
-          # home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
             inputs.nix-index-database.homeModules.nix-index
@@ -49,8 +42,6 @@
             hostname = hostname;
           };
         }
-
-        # inputs.lix-module.nixosModules.default
 
         {
           nix.channel.enable = false;

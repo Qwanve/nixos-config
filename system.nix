@@ -4,10 +4,10 @@
 
 { config, lib, pkgs, inputs, hostname, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./${hostname}/hardware.nix
-    ] ++ (if hostname == "nyx" then [inputs.chromebook-ucm-conf.nixosModules.default] else []);
+  imports = [ ./${hostname}/hardware.nix ]
+    ++ (if hostname == "nyx" then [inputs.chromebook-ucm-conf.nixosModules.default] else []);
+
+  nix.package = pkgs.lixPackageSets.stable.lix;
 
   # hardware.opengl.enable = true;
   hardware.graphics = {
